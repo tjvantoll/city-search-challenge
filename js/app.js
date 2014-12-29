@@ -82,17 +82,53 @@
 		return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
 	}
 
+	function determineGrade( distance ) {
+		switch ( true ) {
+			case distance < 100:
+				return "A+";
+			case distance < 250:
+				return "A";
+			case distance < 500:
+				return "A-";
+			case distance < 1000:
+				return "B+";
+			case distance < 2000:
+				return "B";
+			case distance < 3000:
+				return "B-";
+			case distance < 4500:
+				return "C+";
+			case distance < 6000:
+				return "C";
+			case distance < 7500:
+				return "C-";
+			case distance < 10000:
+				return "D+";
+			case distance < 15000:
+				return "D";
+			case distance < 20000:
+				return "D-";
+			default:
+				return "E";
+		}
+	}
+
 	function handleUserSelection( event ) {
+		// Ignore selections if the results are already up
+		if ( $( "body" ).hasClass( "results" ) ) {
+			return;
+		}
+
 		var selected = new LatLon( event.latLng.k, event.latLng.D ),
 			correct = new LatLon( currentCity.latitude, currentCity.longitude ),
 			difference = selected.distanceTo( correct ),
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
 
-		$( "#dialog-city-name" ).text( currentCity.name );
-		$( "#dialog-city-full-name" ).text( currentCity.formattedName );
+		$( "#dialog-city-name" ).text( currentCity.formattedName );
 		$( "#dialog-km-off" ).text( addCommas( kmDifference ) );
 		$( "#dialog-mi-off" ).text( addCommas( miDifference ) );
+		$( "#dialog-grade" ).text( determineGrade( difference ) );
 		$( "#dialog-next" ).one( "click", setNewCity );
 		$( "#dialog a" ).one( "click", function() {
 			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
