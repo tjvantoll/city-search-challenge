@@ -1,8 +1,32 @@
 (function() {
 	"use strict";
 
+	// An array of city data for potential matches
 	var cities = [],
-		currentCity;
+
+		// An object containing information on the city the user is looking for
+		currentCity,
+
+		// A reference to the Google map object
+		map,
+
+		labelsOff = {
+			featureType: "all",
+			elementType: "labels",
+			stylers: [
+				{ visibility: "off" }
+			]
+		},
+		roadsOff = {
+			featureType: "road",
+			stylers: [
+				{ visibility: "off" }
+			]
+		},
+
+		// A reference to the Google map marker object for the marker currently
+		// being displayed on the screen
+		currentMarker;
 
 	// Data from http://download.geonames.org/export/dump/
 	// CC 3.0 License
@@ -43,44 +67,70 @@
 	}
 
 	function buildMap() {
-		var map = new google.maps.Map( document.getElementById( "map" ), {
-			center: new google.maps.LatLng( 0, 0 ),
-			zoom: 2,
+		map = new google.maps.Map( document.getElementById( "map" ), {
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			disableDefaultUI: true,
-			zoomControl: true,
-			styles: [
-				// Turn off labels
-				{
-					featureType: "all",
-					elementType: "labels",
-					stylers: [
-						{ visibility: "off" }
-					]
-				},
-				// Turn off roads
-				{
-					featureType: "road",
-					stylers: [
-						{ visibility: "off" }
-					]
-				}
-			]
+			zoomControl: true
 		});
 		google.maps.event.addListener( map, "click", handleUserSelection );
 	}
 
+	function addCommas( num ) {
+	    return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
+	}
+
 	function handleUserSelection( event ) {
 		var selected = new LatLon( event.latLng.k, event.latLng.D ),
-			correct = new LatLon( currentCity.latitude, currentCity.longitude );
+			correct = new LatLon( currentCity.latitude, currentCity.longitude ),
+			difference = selected.distanceTo( correct ),
+			kmDifference = Math.floor( difference ),
+			miDifference = Math.floor( difference * 0.6214 );
 
-		navigator.notification.alert( "You are " + selected.distanceTo( correct ) + " km off" );
-		setNewCity();
+		$( ".dialog-city-name" ).text( currentCity.name );
+		$( "#dialog-km-off" ).text( addCommas( kmDifference ) );
+		$( "#dialog-mi-off" ).text( addCommas( miDifference ) );
+		$( "#dialog-next" ).one( "click", setNewCity );
+		$( "#dialog a" ).one( "click", function() {
+			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
+		});
+
+		addMarker();
+		setGameState( "results" );
+	}
+
+	function addMarker() {
+		var myLatlng = new google.maps.LatLng( currentCity.latitude, currentCity.longitude );
+		currentMarker = new google.maps.Marker({
+		    position: myLatlng,
+		    title: currentCity.name
+		});
+		map.setOptions({
+			center: myLatlng,
+			zoom: 3,
+			styles: []
+		});
+		currentMarker.setMap( map );
+	}
+
+	function setGameState( state ) {
+		$( "body" )
+			.removeClass( "looking results" )
+			.addClass( state );
 	}
 
 	function setNewCity() {
+		// Remove the previous answer's marker
+		if ( currentMarker ) {
+			currentMarker.setMap( null );
+		}
+		map.setOptions({
+			center: new google.maps.LatLng( 0, 0 ),
+			zoom: 2,
+			styles: [ labelsOff, roadsOff ]
+		});
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
 		$( "#search" ).html( currentCity.name );
+		setGameState( "looking" );
 	}
 
 	function init() {
