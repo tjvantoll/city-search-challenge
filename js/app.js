@@ -43,14 +43,10 @@
 	}
 
 	function buildMap() {
-		var customMapId = "no_labels",
-			mapOptions = {
+		var mapOptions = {
 				center: new google.maps.LatLng( 0, 0 ),
 				zoom: 2,
-				mapTypeId: customMapId,
-				mapTypeControlOptions: {
-					mapTypeIds: [ google.maps.MapTypeId.SATELLITE, customMapId ]
-				},
+				mapTypeId: google.maps.MapTypeId.HYBRID,
 				disableDefaultUI: true,
 				zoomControl: true
 			},
@@ -63,6 +59,7 @@
 						{ visibility: "off" }
 					]
 				},
+				// Turn off roads
 				{
 					featureType: "road",
 					stylers: [
@@ -70,10 +67,9 @@
 					]
 				}
 			],
-			customMapType = new google.maps.StyledMapType( customFeatures ),
 			map = new google.maps.Map( document.getElementById( "map" ), mapOptions );
 
-		map.mapTypes.set( customMapId, customMapType );
+		map.setOptions({ styles: customFeatures });
 		google.maps.event.addListener( map, "click", handleUserSelection );
 	}
 
