@@ -76,7 +76,7 @@
 	}
 
 	function addCommas( num ) {
-	    return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
+		return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
 	}
 
 	function handleUserSelection( event ) {
@@ -101,8 +101,8 @@
 	function addMarker() {
 		var myLatlng = new google.maps.LatLng( currentCity.latitude, currentCity.longitude );
 		currentMarker = new google.maps.Marker({
-		    position: myLatlng,
-		    title: currentCity.name
+			position: myLatlng,
+			title: currentCity.name
 		});
 		map.setOptions({
 			center: myLatlng,
