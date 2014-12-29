@@ -43,14 +43,13 @@
 	}
 
 	function buildMap() {
-		var mapOptions = {
-				center: new google.maps.LatLng( 0, 0 ),
-				zoom: 2,
-				mapTypeId: google.maps.MapTypeId.HYBRID,
-				disableDefaultUI: true,
-				zoomControl: true
-			},
-			customFeatures = [
+		var map = new google.maps.Map( document.getElementById( "map" ), {
+			center: new google.maps.LatLng( 0, 0 ),
+			zoom: 2,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			disableDefaultUI: true,
+			zoomControl: true,
+			styles: [
 				// Turn off labels
 				{
 					featureType: "all",
@@ -66,19 +65,12 @@
 						{ visibility: "off" }
 					]
 				}
-			],
-			map = new google.maps.Map( document.getElementById( "map" ), mapOptions );
-
-		map.setOptions({ styles: customFeatures });
+			]
+		});
 		google.maps.event.addListener( map, "click", handleUserSelection );
 	}
 
 	function handleUserSelection( event ) {
-		var selectedLatitude = event.latLng.k,
-			selectedLongitude = event.latLng.D,
-			correctLatitude = currentCity.latitude,
-			correctLongitude = currentCity.longitude;
-
 		var selected = new LatLon( event.latLng.k, event.latLng.D ),
 			correct = new LatLon( currentCity.latitude, currentCity.longitude );
 
