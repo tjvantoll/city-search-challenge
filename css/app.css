@@ -1,3 +1,6 @@
+* {
+	box-sizing: border-box;
+}
 html, body, #map {
 	height: 100%;
 	margin: 0;
@@ -5,8 +8,30 @@ html, body, #map {
 #map {
 	width: 100%;
 }
+button {
+	padding: 0.5em 3em;
+	background: skyblue;
+	color: white;
+	border: none;
+	font-size: 1.2em;
+}
+
+#welcome {
+	position: fixed;
+	width: 100%;
+	top: 200px;
+	background: white;
+	padding: 3em;
+}
+#welcome h1 {
+	margin-top: 0;
+}
+.looking #welcome, .results #welcome {
+	display: none;
+}
+
 #header {
-	z-index: 9999999;
+	display: none;
 	width: 100%;
 	position: fixed;
 	top: 0;
@@ -21,9 +46,10 @@ html, body, #map {
 #header span {
 	font-weight: bold;
 }
-.results #header {
-	display: none;
+.looking #header {
+	display: block;
 }
+
 #dialog {
 	display: none;
 	background: white;
@@ -34,13 +60,6 @@ html, body, #map {
 }
 #dialog h1 {
 	margin: 0;
-}
-#dialog button {
-	padding: 0.5em 3em;
-	background: skyblue;
-	color: white;
-	border: none;
-	font-size: 1.2em;
 }
 .results #dialog {
 	display: block;

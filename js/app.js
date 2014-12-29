@@ -129,7 +129,10 @@
 		$( "#dialog-km-off" ).text( addCommas( kmDifference ) );
 		$( "#dialog-mi-off" ).text( addCommas( miDifference ) );
 		$( "#dialog-grade" ).text( determineGrade( difference ) );
-		$( "#dialog-next" ).one( "click", setNewCity );
+		$( "#dialog-next" ).one( "click", function() {
+			setNewCity();
+			setGameState( "looking" );
+		});
 		$( "#dialog a" ).one( "click", function() {
 			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
 		});
@@ -154,7 +157,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "looking results" )
+			.removeClass( "welcome looking results" )
 			.addClass( state );
 	}
 
@@ -170,13 +173,15 @@
 		});
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
 		$( "#search" ).html( currentCity.name );
-		setGameState( "looking" );
 	}
 
 	function init() {
 		buildMap();
 		loadCities().then(function() {
 			setNewCity();
+			$( "#welcome button" ).on( "click", function() {
+				setGameState( "looking" );
+			});
 			navigator.splashscreen.hide();
 		});
 	}
