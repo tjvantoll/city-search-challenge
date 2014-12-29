@@ -58,6 +58,9 @@
 						//"modification_date": rawCityData[ 18 ]
 					}
 
+				city.formattedName = city.name + ", "
+					+ window.countryList[ city.country_code ];
+
 				// Only use cities that have at least 100,000 people
 				if ( city.population > 100000 ) {
 					cities.push( city );
@@ -86,7 +89,8 @@
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
 
-		$( ".dialog-city-name" ).text( currentCity.name );
+		$( "#dialog-city-name" ).text( currentCity.name );
+		$( "#dialog-city-full-name" ).text( currentCity.formattedName );
 		$( "#dialog-km-off" ).text( addCommas( kmDifference ) );
 		$( "#dialog-mi-off" ).text( addCommas( miDifference ) );
 		$( "#dialog-next" ).one( "click", setNewCity );

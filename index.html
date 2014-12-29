@@ -14,9 +14,9 @@
 </div>
 
 <div id="dialog">
-	<h1><span class="dialog-city-name"></span></h1>
+	<h1><span id="dialog-city-full-name"></span></h1>
 	<p>You were <span id="dialog-km-off"></span> km (<span id="dialog-mi-off"></span> mi) off.</p>
-	<a href="#">Lookup <span class="dialog-city-name"></span> on Wikipedia</a>
+	<a href="#">Learn more about <span id="dialog-city-name"></span> on Wikipedia</a>
 	<div>
 		<button id="dialog-next">Next city</button>
 	</div>
@@ -25,8 +25,16 @@
 <script src="cordova.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<!-- Calculating the distance between two latitude/longitude points -->
+<!-- https://github.com/chrisveness/geodesy -->
 <script src="bower_components/geodesy/geo.js"></script>
 <script src="bower_components/geodesy/latlon.js"></script>
+
+<!-- Converting country codes to formatted country names -->
+<script src="js/countries.js"></script>
+
+<!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAhsJhH9bL5zUz1C_nDy3RFfEAZZd28x0"></script>
 <script src="js/app.js"></script>
 
