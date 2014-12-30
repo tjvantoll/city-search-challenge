@@ -2,7 +2,7 @@
 	"ProjectName": "City Search Challenge",
 	"projectVersion": 1,
 	"AppIdentifier": "com.telerik.citysearchchallenge",
-	"DisplayName": "City Search Challenge",
+	"DisplayName": "CitySearch",
 	"Author": "TJ VanToll",
 	"Description": "Test your geography skills by locating cities from around the world",
 	"BundleVersion": "1.0",
