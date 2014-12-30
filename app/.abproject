@@ -10,7 +10,9 @@
 	"FrameworkVersion": "3.5.0",
 	"ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
 	"CorePlugins": [
-		"org.apache.cordova.inappbrowser"
+		"org.apache.cordova.device",
+		"org.apache.cordova.inappbrowser",
+		"org.apache.cordova.splashscreen"
 	],
 	"AndroidPermissions": [],
 	"DeviceOrientations": [

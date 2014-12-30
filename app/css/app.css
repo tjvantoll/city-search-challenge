@@ -36,6 +36,9 @@ button {
 	position: fixed;
 	top: 0;
 }
+.iOS #header {
+	top: 20px;
+}
 #header p {
 	margin: 0;
 	padding: 0.5em;

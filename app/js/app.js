@@ -198,13 +198,18 @@
 	}
 
 	function init() {
+		// Account the for iOS status bar
+		if ( device.platform === "iOS" ) {
+			$( "body" ).addClass( "iOS" );
+		}
+
 		buildMap();
 		loadCities().then(function() {
 			setNewCity();
 			$( "#welcome button" ).on( "click", function() {
 				setGameState( "looking" );
 			});
-			// navigator.splashscreen.hide();
+			navigator.splashscreen.hide();
 		});
 	}
 
