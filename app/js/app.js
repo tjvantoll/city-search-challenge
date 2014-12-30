@@ -204,7 +204,7 @@
 			$( "#welcome button" ).on( "click", function() {
 				setGameState( "looking" );
 			});
-			navigator.splashscreen.hide();
+			// navigator.splashscreen.hide();
 		});
 	}
 
