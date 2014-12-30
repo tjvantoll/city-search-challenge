@@ -24,9 +24,8 @@
 			]
 		},
 
-		// A reference to the Google map marker object for the marker currently
-		// being displayed on the screen
-		currentMarker;
+		// Google Maps markers and paths being displayed on the screen
+		correctMarker, selectedMarker, path;
 
 	// Data from http://download.geonames.org/export/dump/
 	// CC 3.0 License
@@ -137,22 +136,43 @@
 			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
 		});
 
-		addMarker();
-		setGameState( "results" );
+		handleMarkers( selected.lat, selected.lon );
 	}
 
-	function addMarker() {
-		var myLatlng = new google.maps.LatLng( currentCity.latitude, currentCity.longitude );
-		currentMarker = new google.maps.Marker({
-			position: myLatlng,
-			title: currentCity.name
+	function handleMarkers( selectedLatitude, selectedLongitude ) {
+		var correctPosition = new google.maps.LatLng( currentCity.latitude, currentCity.longitude ),
+			selectedPosition = new google.maps.LatLng( selectedLatitude, selectedLongitude ),
+			panPosition = new google.maps.LatLng( currentCity.latitude - 30, currentCity.longitude );
+
+		selectedMarker = new google.maps.Marker({
+			position: selectedPosition,
+			title: "Your selection"
 		});
-		map.setOptions({
-			center: myLatlng,
-			zoom: 3,
-			styles: []
-		});
-		currentMarker.setMap( map );
+		selectedMarker.setMap( map );
+
+		// Empty the custom styles to show the map labels when the
+		// answer is revealed
+		map.setOptions({ styles: [], zoom: 2 });
+
+		setTimeout(function() {
+			correctMarker = new google.maps.Marker({
+				position: correctPosition,
+				title: currentCity.name
+			});
+			correctMarker.setMap( map );
+
+			path = new google.maps.Polyline({
+				path: [ correctPosition, selectedPosition ],
+				geodesic: true,
+				strokeColor: '#FF0000',
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+			path.setMap( map );
+
+			map.panTo( panPosition );
+			setGameState( "results" );
+		}, 500 );
 	}
 
 	function setGameState( state ) {
@@ -163,8 +183,10 @@
 
 	function setNewCity() {
 		// Remove the previous answer's marker
-		if ( currentMarker ) {
-			currentMarker.setMap( null );
+		if ( correctMarker ) {
+			correctMarker.setMap( null );
+			selectedMarker.setMap( null );
+			path.setMap( null );
 		}
 		map.setOptions({
 			center: new google.maps.LatLng( 0, 0 ),
