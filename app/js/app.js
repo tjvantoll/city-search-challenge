@@ -146,7 +146,8 @@
 
 		selectedMarker = new google.maps.Marker({
 			position: selectedPosition,
-			title: "Your selection"
+			title: "Your selection",
+			icon: "img/red-marker.png"
 		});
 		selectedMarker.setMap( map );
 
@@ -157,13 +158,13 @@
 		setTimeout(function() {
 			correctMarker = new google.maps.Marker({
 				position: correctPosition,
-				title: currentCity.name
+				title: currentCity.name,
+				icon: "img/green-marker.png"
 			});
 			correctMarker.setMap( map );
 
 			path = new google.maps.Polyline({
 				path: [ correctPosition, selectedPosition ],
-				geodesic: true,
 				strokeColor: '#FF0000',
 				strokeOpacity: 1.0,
 				strokeWeight: 2
