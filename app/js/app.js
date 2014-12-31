@@ -149,10 +149,10 @@
 			path.setMap( null );
 		}
 		map.setOptions({
-			center: new google.maps.LatLng( 0, 0 ),
 			zoom: 2,
 			styles: [ labelsOff, roadsOff ]
 		});
+		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
 		$( "#search" ).html( currentCity.name );
 	}
