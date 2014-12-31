@@ -33,6 +33,10 @@
 </div>
 
 <script src="cordova.js"></script>
+
+<!-- Telerik Analytics -->
+<script src="js/analytics.js"></script>
+
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -41,16 +45,19 @@
 <script src="bower_components/geodesy/geo.js"></script>
 <script src="bower_components/geodesy/latlon.js"></script>
 
-<!-- Converting country codes to formatted country names -->
-<script src="js/countries.js"></script>
-
 <!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAhsJhH9bL5zUz1C_nDy3RFfEAZZd28x0"></script>
 
 <!-- List of all cities the game uses -->
 <script src="js/cities.js"></script>
 
+<!-- Main script that drives the game -->
+<script src="js/app.js"></script>
+
 <!--
+Script for converting country codes to formatted country names
+<script src="js/countries.js"></script>
+
 // Method used to generate cities.
 // Data from http://download.geonames.org/export/dump/
 // CC 3.0 License
@@ -93,9 +100,6 @@ function loadCities() {
 	});
 }
 -->
-
-<!-- Main script that drives the game -->
-<script src="js/app.js"></script>
 
 </body>
 </html>
