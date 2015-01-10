@@ -8,4 +8,14 @@ This repository contains the source code for the City Search Challenge app: a cr
 
 ## Download
 
-[![](google-play.png)](https://play.google.com/store/apps/details?id=com.tjvantoll.citysearch&hl=en)
+### iOS
+
+<a href="https://itunes.apple.com/us/app/city-search-geography-challenge/id954908040?mt=8">
+	<img src="ios-app-store.png" style="height: 59px;">
+</a>
+
+### Android
+
+<a href="https://play.google.com/store/apps/details?id=com.tjvantoll.citysearch&hl=en">
+	<img src="google-play.png" style="height: 59px;">
+</a>
