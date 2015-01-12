@@ -8,6 +8,18 @@ html, body, #map {
 #map {
 	width: 100%;
 }
+
+body .welcome,
+body .search,
+body .results {
+	display: none;
+}
+body.welcome .welcome,
+body.search .search,
+body.results .results {
+	display: block;
+}
+
 button {
 	padding: 0.5em 3em;
 	background: skyblue;
@@ -26,12 +38,8 @@ button {
 #welcome h1 {
 	margin-top: 0;
 }
-.looking #welcome, .results #welcome {
-	display: none;
-}
 
 #header {
-	display: none;
 	width: 100%;
 	position: fixed;
 	top: 0;
@@ -49,12 +57,8 @@ button {
 #header span {
 	font-weight: bold;
 }
-.looking #header {
-	display: block;
-}
 
 #dialog {
-	display: none;
 	background: white;
 	width: 100%;
 	bottom: 0;
@@ -66,7 +70,4 @@ button {
 }
 #dialog-grade {
 	font-weight: bold;
-}
-.results #dialog {
-	display: block;
 }

@@ -89,7 +89,7 @@
 		$( "#dialog-grade" ).text( determineGrade( difference ) );
 		$( "#dialog-next" ).one( "click", function() {
 			setNewCity();
-			setGameState( "looking" );
+			setGameState( "search" );
 		});
 		$( "#dialog a" ).one( "click", function() {
 			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
@@ -137,7 +137,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome looking results" )
+			.removeClass( "welcome search results" )
 			.addClass( state );
 	}
 
@@ -166,7 +166,7 @@
 		buildMap();
 		setNewCity();
 		$( "#welcome button" ).on( "click", function() {
-			setGameState( "looking" );
+			setGameState( "search" );
 		});
 		navigator.splashscreen.hide();
 	}

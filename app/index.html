@@ -7,21 +7,21 @@
 	<link href="bower_components/normalize.css/normalize.css" rel="stylesheet">
 	<link href="css/app.css" rel="stylesheet">
 </head>
-<body>
+<body class="welcome">
 
 <div id="map"></div>
-<div id="header">
-	<p>City to find: <span id="search"></span></p>
-</div>
 
-<div id="welcome">
+<div id="welcome" class="welcome">
 	<h1>Welcome!</h1>
 	<p>City Search is a simple game. Tap on the map where you believe the requested city is located. See how close you can get!</p>
 	<button>Get started</button>
 </div>
 
+<div id="header" class="search">
+	<p>City to find: <span id="search"></span></p>
+</div>
 
-<div id="dialog">
+<div id="dialog" class="results">
 	<h1><span id="dialog-city-name"></span></h1>
 	(<a href="#">Wikipedia</a>)
 	
@@ -92,7 +92,7 @@ function loadCities() {
 			city.formattedName = city.name + ", "
 				+ window.countryList[ city.country_code ];
 
-			// Only use cities that have at least 100,000 people
+			// Only use cities that have at least 200,000 people
 			if ( city.population > 200000 ) {
 				cities.push( city );
 			}
