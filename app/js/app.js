@@ -91,9 +91,7 @@
 			setNewCity();
 			setGameState( "search" );
 		});
-		$( "#dialog a" ).one( "click", function() {
-			window.open( "http://en.wikipedia.org/w/index.php?search=" + currentCity.name, "_blank" );
-		});
+
 
 		handleMarkers( selected.lat, selected.lon );
 	}
@@ -155,6 +153,7 @@
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
 		$( "#search" ).html( currentCity.name );
+		$( "#dialog a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	}
 
 	function init() {
