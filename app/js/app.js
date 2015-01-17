@@ -7,6 +7,9 @@
 		// An object containing information on the city the user is looking for
 		currentCity,
 
+		// A string containing the current difficulty of the game (Easy, Medium, of Hard)
+		currentDifficulty,
+
 		// A reference to the Google map object
 		map,
 
@@ -134,7 +137,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome search results" )
+			.removeClass( "welcome search results difficulty" )
 			.addClass( state );
 	}
 
@@ -151,12 +154,36 @@
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
-		$( "#current-city" ).html( currentCity.name );
+		$( "#search-city" ).html( currentCity.name );
 		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
-	}
+	};
+
+	function changeDifficulty() {
+		var difficultyDisplay = $( "#search-difficulty" ),
+			previousDifficulty = difficultyDisplay.text(),
+
+		currentDifficulty = $( "#difficulty-selection .active" ).text();
+
+		if ( previousDifficulty != currentDifficulty ) {
+			difficultyDisplay.text( currentDifficulty );
+			setNewCity();
+		}
+	};
 
 	function attachEvents() {
 		$( "div.welcome button" ).on( "click", function() {
+			setGameState( "search" );
+		});
+		$( "div.search a" ).on( "click", function( event ) {
+			event.preventDefault();
+			setGameState( "difficulty" );
+		});
+		$( "#difficulty-selection li" ).on( "click", function() {
+			$( this ).siblings().removeClass( "active" );
+			$( this ).addClass( "active" );
+		});
+		$( "div.difficulty button" ).on( "click", function() {
+			changeDifficulty();
 			setGameState( "search" );
 		});
 	};

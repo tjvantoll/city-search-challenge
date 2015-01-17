@@ -11,21 +11,20 @@
 
 <div id="map"></div>
 
-<div class="welcome">
+<div class="welcome panel">
 	<h1>Welcome!</h1>
 	<p>City Search is a simple game. Tap on the map where you believe the requested city is located. See how close you can get!</p>
 	<button id="get-started">Get started</button>
 </div>
 
 <div class="search">
-	<p>
-		City to find: <span id="current-city"></span>
-		<br>
-		Difficulty: <span id="difficulty">Easy</span>(<a id="difficulty-change" href="#">Change</a>)
-	</p>
+	<p>City to find: <span id="search-city"></span></p>
+	<ul>
+		<li>Difficulty: <a href="#" id="search-difficulty">Easy</a></li>
+	</ul>
 </div>
 
-<div class="results">
+<div class="results panel">
 	<h1><span id="results-city-name"></span></h1>
 	(<a href="#" target="_blank">Wikipedia</a>)
 	
@@ -36,13 +35,14 @@
 	<button id="results-next">Next city</button>
 </div>
 
-<div class="difficulty">
+<div class="difficulty panel">
 	<h1>Choose a difficulty</h1>
-	<ul>
-		<li>Easy</li>
+	<ul id="difficulty-selection">
+		<li class="active">Easy</li>
 		<li>Medium</li>
 		<li>Hard</li>
 	</ul>
+	<button>OK</button>
 </div>
 
 <script src="cordova.js"></script>
