@@ -40,7 +40,7 @@ fs.readFile( inputFilename, function( error, data ) {
 		}
 	});
 
-	fs.appendFileSync( outputFilename, "]" );
+	fs.appendFileSync( outputFilename, "];" );
 });
 
 // Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js

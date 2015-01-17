@@ -1,3 +1,4 @@
+/* global $, google */
 (function() {
 	"use strict";
 
@@ -87,8 +88,8 @@
 			return;
 		}
 
-		var selected = new LatLon( event.latLng.k, event.latLng.D ),
-			correct = new LatLon( currentCity.latitude, currentCity.longitude ),
+		var selected = new window.LatLon( event.latLng.k, event.latLng.D ),
+			correct = new window.LatLon( currentCity.latitude, currentCity.longitude ),
 			difference = selected.distanceTo( correct ),
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
@@ -131,7 +132,7 @@
 
 			path = new google.maps.Polyline({
 				path: [ correctPosition, selectedPosition ],
-				strokeColor: '#FF0000',
+				strokeColor: "#FF0000",
 				strokeOpacity: 1.0,
 				strokeWeight: 2
 			});
@@ -153,20 +154,20 @@
 			selectionMade = false;
 		while ( !selectionMade ) {
 			city = cities[ Math.ceil( Math.random() * cities.length ) ];
-			if ( currentDifficulty == "Easy" && city.population < 3000000 ) {
+			if ( currentDifficulty === "Easy" && city.population < 3000000 ) {
 				continue;
 			}
-			if ( currentDifficulty == "Medium" && city.population < 1000000 ) {
+			if ( currentDifficulty === "Medium" && city.population < 1000000 ) {
 				continue;
 			}
 			selectionMade = true;
 		}
 		return city;
-	};
+	}
 
 	function displayCityName() {
-		return currentDifficulty == "Easy" ? currentCity.formattedName : currentCity.name;
-	};
+		return currentDifficulty === "Easy" ? currentCity.formattedName : currentCity.name;
+	}
 
 	function pickMapStyles() {
 		switch ( currentDifficulty ) {
@@ -194,7 +195,7 @@
 		currentCity = pickNextCity();
 		$( "#search-city" ).html( displayCityName() );
 		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
-	};
+	}
 
 	function changeDifficulty() {
 		var difficultyDisplay = $( "#search-difficulty" ),
@@ -202,11 +203,11 @@
 
 		currentDifficulty = $( "#difficulty-selection .active" ).text().trim();
 
-		if ( previousDifficulty != currentDifficulty ) {
+		if ( previousDifficulty !== currentDifficulty ) {
 			difficultyDisplay.text( currentDifficulty );
 			setNewCity();
 		}
-	};
+	}
 
 	function attachEvents() {
 		$( "div.welcome button" ).on( "click", function() {
@@ -224,11 +225,11 @@
 			changeDifficulty();
 			setGameState( "search" );
 		});
-	};
+	}
 
 	function init() {
 		// Account the for iOS status bar
-		if ( device.platform === "iOS" ) {
+		if ( window.device.platform === "iOS" ) {
 			$( "body" ).addClass( "iOS" );
 		}
 
@@ -236,7 +237,7 @@
 		setNewCity();
 		attachEvents();
 		navigator.splashscreen.hide();
-	};
+	}
 
 	document.addEventListener( "deviceready", init );
 }());

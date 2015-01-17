@@ -62,14 +62,14 @@ div.search {
 	color: white;
 }
 div.search p {
-	margin: 0.5em;
+	margin: 0;
 }
 div.search span {
 	font-weight: bold;
 }
 div.search ul {
-	margin: 0 0 0.5em 0;
-	font-size: 0.9em;
+	margin: 0.25em 0 0 0;
+	font-size: 0.8em;
 }
 div.search a {
 	color: white;
@@ -89,10 +89,20 @@ div.results h1 {
 /**** Difficulty Section ****/
 div.difficulty {
 	top: 10%;
+	padding: 1em;
+}
+#difficulty-selection {
+	padding: 0;
+	list-style-type: none;
 }
 #difficulty-selection li {
 	padding: 1em;
+	margin: 0.2em;
+	border: 2px dotted gray;
+	border-radius: 5px;
 }
 #difficulty-selection li.active {
 	font-weight: bold;
+	border-color: black;
+	border-style: solid;
 }

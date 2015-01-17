@@ -2080,4 +2080,4 @@ window.cities = [
 {"name":"Harare","latitude":"-17.82772","longitude":"31.05337","country_code":"ZW","population":"1542813","formattedName":"Harare, Zimbabwe"},
 {"name":"Bulawayo","latitude":"-20.15","longitude":"28.58333","country_code":"ZW","population":"699385","formattedName":"Bulawayo, Zimbabwe"},
 {"name":"Chitungwiza","latitude":"-18.01274","longitude":"31.07555","country_code":"ZW","population":"340360","formattedName":"Chitungwiza, Zimbabwe"},
-]
+];
