@@ -1,5 +1,47 @@
+// Script used to generate the city data needed for the game.
+// The raw data is from http://download.geonames.org/export/dump/,
+// which uses the CC 3.0 license.
+var cities = [],
+	fs = require( "fs" ),
+	Lazy = require( "lazy" );
+
+new Lazy( fs.createReadStream( "cities.txt" ) )
+	.lines
+	.forEach(function( line ) {
+		var cityParts = line.toString().split( "\t" ),
+			city = {
+				//"geonameid":         cityParts[ 0 ],
+				"name":                cityParts[ 1 ],
+				"asciiname":           cityParts[ 2 ],
+				//"alternatenames":    cityParts[ 3 ],
+				"latitude":            cityParts[ 4 ],
+				"longitude":           cityParts[ 5 ],
+				//"feature_class":     cityParts[ 6 ],
+				//"feature_code":      cityParts[ 7 ],
+				"country_code":        cityParts[ 8 ],
+				//"cc2":               cityParts[ 9 ],
+				//"admin1_code":       cityParts[ 10 ],
+				//"admin2_code":       cityParts[ 11 ],
+				//"admin3_code":       cityParts[ 12 ],
+				//"admin4_code":       cityParts[ 13 ],
+				"population":          cityParts[ 14 ],
+				//"elevation":         cityParts[ 15 ],
+				//"dem":               cityParts[ 16 ],
+				//"timezone":          cityParts[ 17 ],
+				//"modification_date": cityParts[ 18 ]
+			}
+
+		city.formattedName = city.name + ", "
+			+ countries[ city.country_code ];
+
+		// Only use cities that have at least 200,000 people
+		if ( city.population > 10000000 ) {
+			cities.push( city );
+		}
+	});
+
 // Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js
-window.countryList = {
+var countries = {
 	"AF": "Afghanistan",
 	"AL": "Albania",
 	"DZ": "Algeria",

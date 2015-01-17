@@ -1,0 +1,13 @@
+{
+	"name": "city-search-challenge",
+	"dependencies": {
+		"lazy": "^1.0.11"
+	},
+	"devDependencies": {
+		"lazy": "^1.0.11"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tjvantoll/city-search-challenge.git"
+	}
+}
