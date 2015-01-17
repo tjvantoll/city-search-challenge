@@ -1,18 +1,21 @@
 // Script used to generate the city data needed for the game.
 // The raw data is from http://download.geonames.org/export/dump/,
 // which uses the CC 3.0 license.
-var cities = [],
+var inputFilename = "cities.txt",
+	outputFilename = "app/js/cities.js",
 	fs = require( "fs" ),
 	Lazy = require( "lazy" );
 
-new Lazy( fs.createReadStream( "cities.txt" ) )
+fs.writeFileSync( outputFilename, "window.cities = [\n" );
+
+new Lazy( fs.createReadStream( inputFilename ) )
 	.lines
 	.forEach(function( line ) {
 		var cityParts = line.toString().split( "\t" ),
 			city = {
 				//"geonameid":         cityParts[ 0 ],
 				"name":                cityParts[ 1 ],
-				"asciiname":           cityParts[ 2 ],
+				//"asciiname":           cityParts[ 2 ],
 				//"alternatenames":    cityParts[ 3 ],
 				"latitude":            cityParts[ 4 ],
 				"longitude":           cityParts[ 5 ],
@@ -35,10 +38,15 @@ new Lazy( fs.createReadStream( "cities.txt" ) )
 			+ countries[ city.country_code ];
 
 		// Only use cities that have at least 200,000 people
-		if ( city.population > 10000000 ) {
-			cities.push( city );
+		if ( city.population > 200000 ) {
+			fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
 		}
 	});
+
+// This is a such hack. TODO: Learn promises in Node with files
+setTimeout(function() {
+	fs.appendFileSync( outputFilename, "]" );
+}, 1000 );
 
 // Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js
 var countries = {
