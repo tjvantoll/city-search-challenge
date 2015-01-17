@@ -26,6 +26,13 @@
 				{ visibility: "off" }
 			]
 		},
+		countryBordersOff = {
+			featureType: "administrative.country",
+			elementType: "geometry.stroke",
+			stylers: [
+				{ visibility: "off" }
+			]
+		},
 
 		// Google Maps markers and paths being displayed on the screen
 		correctMarker, selectedMarker, path;
@@ -161,6 +168,17 @@
 		return currentDifficulty == "Easy" ? currentCity.formattedName : currentCity.name;
 	};
 
+	function pickMapStyles() {
+		switch ( currentDifficulty ) {
+			case "Easy":
+				return [ labelsOff ];
+			case "Medium":
+				return [ labelsOff, roadsOff ];
+			case "Hard":
+				return [ labelsOff, roadsOff, countryBordersOff ];
+		}
+	}
+
 	function setNewCity() {
 		// Remove the previous answer's marker
 		if ( correctMarker ) {
@@ -170,7 +188,7 @@
 		}
 		map.setOptions({
 			zoom: 2,
-			styles: [ labelsOff, roadsOff ]
+			styles: pickMapStyles()
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = pickNextCity();
