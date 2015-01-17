@@ -157,6 +157,10 @@
 		return city;
 	};
 
+	function displayCityName() {
+		return currentDifficulty == "Easy" ? currentCity.formattedName : currentCity.name;
+	};
+
 	function setNewCity() {
 		// Remove the previous answer's marker
 		if ( correctMarker ) {
@@ -170,15 +174,15 @@
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = pickNextCity();
-		$( "#search-city" ).html( currentCity.name );
+		$( "#search-city" ).html( displayCityName() );
 		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	};
 
 	function changeDifficulty() {
 		var difficultyDisplay = $( "#search-difficulty" ),
-			previousDifficulty = difficultyDisplay.text(),
+			previousDifficulty = difficultyDisplay.text();
 
-		currentDifficulty = $( "#difficulty-selection .active" ).text();
+		currentDifficulty = $( "#difficulty-selection .active" ).text().trim();
 
 		if ( previousDifficulty != currentDifficulty ) {
 			difficultyDisplay.text( currentDifficulty );
