@@ -8,7 +8,7 @@
 		currentCity,
 
 		// A string containing the current difficulty of the game (Easy, Medium, of Hard)
-		currentDifficulty,
+		currentDifficulty = "Easy",
 
 		// A reference to the Google map object
 		map,
@@ -141,6 +141,22 @@
 			.addClass( state );
 	}
 
+	function pickNextCity() {
+		var city,
+			selectionMade = false;
+		while ( !selectionMade ) {
+			city = cities[ Math.ceil( Math.random() * cities.length ) ];
+			if ( currentDifficulty == "Easy" && city.population < 3000000 ) {
+				continue;
+			}
+			if ( currentDifficulty == "Medium" && city.population < 100000 ) {
+				continue;
+			}
+			selectionMade = true;
+		}
+		return city;
+	};
+
 	function setNewCity() {
 		// Remove the previous answer's marker
 		if ( correctMarker ) {
@@ -153,7 +169,7 @@
 			styles: [ labelsOff, roadsOff ]
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
-		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
+		currentCity = pickNextCity();
 		$( "#search-city" ).html( currentCity.name );
 		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	};
