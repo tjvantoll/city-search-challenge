@@ -3,14 +3,11 @@
 // which uses the CC 3.0 license.
 var inputFilename = "cities.txt",
 	outputFilename = "app/js/cities.js",
-	fs = require( "fs" ),
-	Lazy = require( "lazy" );
+	fs = require( "fs" );
 
 fs.writeFileSync( outputFilename, "window.cities = [\n" );
-
-new Lazy( fs.createReadStream( inputFilename ) )
-	.lines
-	.forEach(function( line ) {
+fs.readFile( inputFilename, function( error, data ) {
+	data.toString().split( "\n" ).forEach(function( line ) {
 		var cityParts = line.toString().split( "\t" ),
 			city = {
 				//"geonameid":         cityParts[ 0 ],
@@ -43,10 +40,8 @@ new Lazy( fs.createReadStream( inputFilename ) )
 		}
 	});
 
-// This is a such hack. TODO: Learn promises in Node with files
-setTimeout(function() {
 	fs.appendFileSync( outputFilename, "]" );
-}, 1000 );
+});
 
 // Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js
 var countries = {
