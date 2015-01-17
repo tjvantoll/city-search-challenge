@@ -149,7 +149,7 @@
 			if ( currentDifficulty == "Easy" && city.population < 3000000 ) {
 				continue;
 			}
-			if ( currentDifficulty == "Medium" && city.population < 100000 ) {
+			if ( currentDifficulty == "Medium" && city.population < 1000000 ) {
 				continue;
 			}
 			selectionMade = true;

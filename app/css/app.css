@@ -90,11 +90,8 @@ div.results h1 {
 div.difficulty {
 	top: 10%;
 }
-#difficulty-selection {
-	list-style-type: none;
-}
 #difficulty-selection li {
-	padding: 2em;
+	padding: 1em;
 }
 #difficulty-selection li.active {
 	font-weight: bold;
