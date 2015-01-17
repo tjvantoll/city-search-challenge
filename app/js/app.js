@@ -107,9 +107,12 @@
 	}
 
 	function handleMarkers( selectedLatitude, selectedLongitude ) {
-		var correctPosition = new google.maps.LatLng( currentCity.latitude, currentCity.longitude ),
-			selectedPosition = new google.maps.LatLng( selectedLatitude, selectedLongitude ),
-			panPosition = new google.maps.LatLng( currentCity.latitude - 30, currentCity.longitude );
+		var correctPosition = new google.maps.LatLng(
+				currentCity.latitude, currentCity.longitude ),
+			selectedPosition = new google.maps.LatLng(
+				selectedLatitude, selectedLongitude ),
+			panPosition = new google.maps.LatLng(
+				currentCity.latitude - 30, currentCity.longitude );
 
 		selectedMarker = new google.maps.Marker({
 			position: selectedPosition,
@@ -194,7 +197,8 @@
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = pickNextCity();
 		$( "#search-city" ).html( displayCityName() );
-		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
+		$( "div.results a" ).attr( "href",
+			"http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	}
 
 	function changeDifficulty() {

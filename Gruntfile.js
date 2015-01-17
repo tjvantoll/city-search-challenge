@@ -7,11 +7,18 @@ module.exports = function( grunt ) {
 			options: {
 				jshintrc: true
 			},
-			all: [ "app/js/*" ]
+			all: [ "*.js, app/js/*.js" ]
+		},
+		jscs: {
+			src: [ "*.js", "app/js/*.js" ],
+			options: {
+				config: ".jscsrc"
+			}
 		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
+	grunt.loadNpmTasks( "grunt-jscs" );
 
-	grunt.registerTask( "default", [ "jshint" ]);
+	grunt.registerTask( "default", [ "jshint", "jscs" ]);
 };
