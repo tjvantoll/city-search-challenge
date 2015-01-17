@@ -83,15 +83,14 @@
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
 
-		$( "#dialog-city-name" ).text( currentCity.formattedName );
-		$( "#dialog-km-off" ).text( addCommas( kmDifference ) );
-		$( "#dialog-mi-off" ).text( addCommas( miDifference ) );
-		$( "#dialog-grade" ).text( determineGrade( difference ) );
-		$( "#dialog-next" ).one( "click", function() {
+		$( "#results-city-name" ).text( currentCity.formattedName );
+		$( "#results-km-off" ).text( addCommas( kmDifference ) );
+		$( "#results-mi-off" ).text( addCommas( miDifference ) );
+		$( "#results-grade" ).text( determineGrade( difference ) );
+		$( "#results-next" ).one( "click", function() {
 			setNewCity();
 			setGameState( "search" );
 		});
-
 
 		handleMarkers( selected.lat, selected.lon );
 	}
@@ -152,9 +151,15 @@
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = cities[ Math.ceil( Math.random() * cities.length ) ];
-		$( "#search" ).html( currentCity.name );
-		$( "#dialog a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
+		$( "#current-city" ).html( currentCity.name );
+		$( "div.results a" ).attr( "href", "http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	}
+
+	function attachEvents() {
+		$( "div.welcome button" ).on( "click", function() {
+			setGameState( "search" );
+		});
+	};
 
 	function init() {
 		// Account the for iOS status bar
@@ -164,11 +169,9 @@
 
 		buildMap();
 		setNewCity();
-		$( "#welcome button" ).on( "click", function() {
-			setGameState( "search" );
-		});
+		attachEvents();
 		navigator.splashscreen.hide();
-	}
+	};
 
 	document.addEventListener( "deviceready", init );
 }());

@@ -11,12 +11,14 @@ html, body, #map {
 
 body .welcome,
 body .search,
-body .results {
+body .results,
+body .difficulty {
 	display: none;
 }
 body.welcome .welcome,
 body.search .search,
-body.results .results {
+body.results .results,
+body.difficulty .difficulty {
 	display: block;
 }
 
@@ -28,46 +30,49 @@ button {
 	font-size: 1.2em;
 }
 
-#welcome {
+/**** Welcome Section ****/
+div.welcome {
 	position: fixed;
 	width: 100%;
 	top: 20%;
 	background: white;
 	padding: 2em;
 }
-#welcome h1 {
+div.welcome h1 {
 	margin-top: 0;
 }
 
-#header {
+/**** Search Section ****/
+div.search {
 	width: 100%;
 	position: fixed;
 	top: 0;
 }
-.iOS #header {
+.iOS div.search {
 	top: 20px;
 }
-#header p {
+div.search p {
 	margin: 0;
 	padding: 0.5em;
 	font-size: 1.2em;
 	background: rgba( 0, 0, 0, 0.6 );
 	color: white;
 }
-#header span {
+div.search span {
 	font-weight: bold;
 }
 
-#dialog {
+/**** Results Section ****/
+div.results {
 	background: white;
 	width: 100%;
 	bottom: 0;
 	position: fixed;
 	padding: 2em;
 }
-#dialog h1 {
+div.results h1 {
 	margin: 0;
 }
-#dialog-grade {
+#results-grade {
 	font-weight: bold;
 }
