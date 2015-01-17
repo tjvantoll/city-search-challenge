@@ -12,7 +12,7 @@ fs.readFile( inputFilename, function( error, data ) {
 			city = {
 				//"geonameid":         cityParts[ 0 ],
 				"name":                cityParts[ 1 ],
-				//"asciiname":           cityParts[ 2 ],
+				//"asciiname":         cityParts[ 2 ],
 				//"alternatenames":    cityParts[ 3 ],
 				"latitude":            cityParts[ 4 ],
 				"longitude":           cityParts[ 5 ],
