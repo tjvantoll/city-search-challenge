@@ -234,6 +234,10 @@
 			event.preventDefault();
 			setGameState( "difficulty" );
 		});
+		$( "div.results a" ).on( "click", function( event ) {
+			event.preventDefault();
+			window.open( $( this ).attr( "href" ), "_blank" );
+		});
 		$( "#results-next" ).on( "touchend", function() {
 			setNewCity();
 			setGameState( "search" );
