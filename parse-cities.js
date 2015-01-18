@@ -30,7 +30,7 @@ fs.readFile( inputFilename, function( error, data ) {
 				//"dem":               cityParts[ 16 ],
 				//"timezone":          cityParts[ 17 ],
 				//"modification_date": cityParts[ 18 ]
-			}
+			};
 
 		// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 		city.formattedName = city.name + ", " +

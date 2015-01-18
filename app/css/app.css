@@ -29,6 +29,9 @@ button {
 	border: none;
 	font-size: 1.2em;
 }
+h1 {
+	margin: 0;
+}
 
 .panel {
 	position: fixed;
@@ -40,9 +43,6 @@ button {
 /**** Welcome Section ****/
 div.welcome {
 	top: 20%;
-}
-div.welcome h1 {
-	margin-top: 0;
 }
 
 /**** Search Section ****/
@@ -79,9 +79,6 @@ div.search a {
 div.results {
 	bottom: 0;
 }
-div.results h1 {
-	margin: 0;
-}
 #results-grade {
 	font-weight: bold;
 }
@@ -91,17 +88,17 @@ div.difficulty {
 	top: 10%;
 	padding: 1em;
 }
-#difficulty-selection {
+.radio-list {
 	padding: 0;
 	list-style-type: none;
 }
-#difficulty-selection li {
+.radio-list li {
 	padding: 1em;
 	margin: 0.2em;
 	border: 2px dotted gray;
 	border-radius: 5px;
 }
-#difficulty-selection li.active {
+.radio-list .active {
 	font-weight: bold;
 	border-color: black;
 	border-style: solid;
