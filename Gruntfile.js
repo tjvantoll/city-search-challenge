@@ -20,12 +20,17 @@ module.exports = function( grunt ) {
 			options: {
 				csslintrc: ".csslintrc"
 			}
+		},
+		htmllint: {
+			all: [ "app/*.html" ]
 		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-jscs" );
 	grunt.loadNpmTasks( "grunt-contrib-csslint" );
+	grunt.loadNpmTasks( "grunt-html" );
 
-	grunt.registerTask( "default", [ "jshint", "jscs", "csslint" ]);
+	grunt.registerTask( "default",
+		[ "jshint", "jscs", "csslint", "htmllint" ]);
 };
