@@ -19,7 +19,7 @@ fs.readFile( inputFilename, function( error, data ) {
 				"longitude":           cityParts[ 5 ],
 				//"feature_class":     cityParts[ 6 ],
 				//"feature_code":      cityParts[ 7 ],
-				"country_code":        cityParts[ 8 ],
+				"countryCode":         cityParts[ 8 ],
 				//"cc2":               cityParts[ 9 ],
 				//"admin1_code":       cityParts[ 10 ],
 				//"admin2_code":       cityParts[ 11 ],
@@ -32,12 +32,11 @@ fs.readFile( inputFilename, function( error, data ) {
 				//"modification_date": cityParts[ 18 ]
 			};
 
-		// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 		city.formattedName = city.name + ", " +
-			countries[ city.country_code ];
+			countries[ city.countryCode ];
 
-		// Only use cities that have at least 200,000 people
-		if ( city.population > 200000 ) {
+		// Only use cities that have at least 300,000 people
+		if ( city.population > 300000 ) {
 			fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
 		}
 	});

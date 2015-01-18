@@ -152,15 +152,32 @@
 			.addClass( state );
 	}
 
+	function useCity( city ) {
+		// Apply different logic for India and China because of their populations
+		if ( city.countryCode  === "IN" || city.countryCode === "CN" ) {
+			if ( currentDifficulty === "Easy" && city.population < 4000000 ) {
+				return false;
+			}
+			if ( currentDifficulty === "Medium" && city.population < 2000000 ) {
+				return false;
+			}
+		}
+
+		if ( currentDifficulty === "Easy" && city.population < 1000000 ) {
+			return false;
+		}
+		if ( currentDifficulty === "Medium" && city.population < 500000 ) {
+			return false;
+		}
+		return true;
+	}
+
 	function pickNextCity() {
 		var city,
 			selectionMade = false;
 		while ( !selectionMade ) {
-			city = cities[ Math.ceil( Math.random() * cities.length ) ];
-			if ( currentDifficulty === "Easy" && city.population < 3000000 ) {
-				continue;
-			}
-			if ( currentDifficulty === "Medium" && city.population < 1000000 ) {
+			city = cities[ Math.floor( Math.random() * cities.length ) ];
+			if ( !useCity( city ) ) {
 				continue;
 			}
 			selectionMade = true;
