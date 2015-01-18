@@ -98,10 +98,6 @@
 		$( "#results-km-off" ).text( addCommas( kmDifference ) );
 		$( "#results-mi-off" ).text( addCommas( miDifference ) );
 		$( "#results-grade" ).text( determineGrade( difference ) );
-		$( "#results-next" ).one( "click", function() {
-			setNewCity();
-			setGameState( "search" );
-		});
 
 		handleMarkers( selected.lat, selected.lon );
 	}
@@ -231,18 +227,22 @@
 	}
 
 	function attachEvents() {
-		$( "div.welcome button" ).on( "click", function() {
+		$( "div.welcome button" ).on( "touchend", function() {
 			setGameState( "search" );
 		});
-		$( "div.search a" ).on( "click", function( event ) {
+		$( "div.search a" ).on( "touchend", function( event ) {
 			event.preventDefault();
 			setGameState( "difficulty" );
 		});
-		$( "#difficulty-selection li" ).on( "click", function() {
+		$( "#results-next" ).on( "touchend", function() {
+			setNewCity();
+			setGameState( "search" );
+		});
+		$( "#difficulty-selection li" ).on( "touchend", function() {
 			$( this ).siblings().removeClass( "active" );
 			$( this ).addClass( "active" );
 		});
-		$( "div.difficulty button" ).on( "click", function() {
+		$( "div.difficulty button" ).on( "touchend", function() {
 			changeDifficulty();
 			setGameState( "search" );
 		});
