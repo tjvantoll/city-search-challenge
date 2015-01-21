@@ -23,6 +23,48 @@ module.exports = function( grunt ) {
 		},
 		htmllint: {
 			all: [ "app/*.html" ]
+		},
+		uglify: {
+			all: {
+				files: [
+					{
+						expand: true,
+						src: "app/js/**/*.js"
+					}
+				]
+			}
+		},
+		cssmin: {
+			all: {
+				files: [
+					{
+						expand: true,
+						src: "app/css/**/*.css"
+					}
+				]
+			}
+		},
+		appbuilder: {
+			options: {
+				debug: false
+			},
+			android: {
+				options: {
+					platform: "android"
+				},
+				files: {
+					"app.apk": [ "app" ]
+				}
+			},
+			ios: {
+				options: {
+					platform: "ios",
+					provision: "iOS Distribution"
+				},
+				files: {
+					"app.ipa": [ "app" ]
+				}
+			}
 		}
 	});
 
@@ -30,7 +72,15 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-jscs" );
 	grunt.loadNpmTasks( "grunt-contrib-csslint" );
 	grunt.loadNpmTasks( "grunt-html" );
+	grunt.loadNpmTasks( "grunt-contrib-uglify" );
+	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+	grunt.loadNpmTasks( "grunt-contrib-appbuilder" );
 
-	grunt.registerTask( "default",
-		[ "jshint", "jscs", "csslint", "htmllint" ]);
+	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
+	grunt.registerTask( "compress", [ "uglify", "cssmin" ]);
+
+	grunt.registerTask( "android", [ "lint", "compress", "appbuilder:android" ] );
+	grunt.registerTask( "ios", [ "lint", "compress", "appbuilder:ios" ] );
+
+	grunt.registerTask( "default", [ "lint" ]);
 };
