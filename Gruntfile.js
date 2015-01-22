@@ -100,7 +100,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "default", [ "lint" ]);
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
-	grunt.registerTask( "compress", [ "uglify", "cssmin", "smushit" ]);
+	grunt.registerTask( "compress", [ "sass", "uglify", "cssmin", "smushit" ]);
 
 	grunt.registerTask( "android", [ "lint", "compress", "appbuilder:android" ] );
 	grunt.registerTask( "ios", [ "lint", "compress", "appbuilder:ios" ] );
