@@ -62,6 +62,20 @@ module.exports = function( grunt ) {
 				src: [ "app/img/**/*.png" ]
 			}
 		},
+		htmlmin: {
+			options: {
+				removeComments: true,
+				collapseWhitespace: true
+			},
+			dist: {
+				files: [
+					{
+						expand: true,
+						src: "app/**/*.html"
+					}
+				]
+			}
+		},
 		appbuilder: {
 			options: {
 				debug: false
@@ -87,20 +101,24 @@ module.exports = function( grunt ) {
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
+
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-jscs" );
 	grunt.loadNpmTasks( "grunt-contrib-csslint" );
 	grunt.loadNpmTasks( "grunt-html" );
 	grunt.loadNpmTasks( "grunt-sass" );
+
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-smushit" );
+	grunt.loadNpmTasks( "grunt-contrib-htmlmin" );
+
 	grunt.loadNpmTasks( "grunt-contrib-appbuilder" );
 
 	grunt.registerTask( "default", [ "lint" ]);
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
-	grunt.registerTask( "compress", [ "sass", "uglify", "cssmin", "smushit" ]);
+	grunt.registerTask( "compress", [ "sass", "uglify", "cssmin", "htmlmin", "smushit" ]);
 
 	grunt.registerTask( "android", [ "lint", "compress", "appbuilder:android" ] );
 	grunt.registerTask( "ios", [ "lint", "compress", "appbuilder:ios" ] );

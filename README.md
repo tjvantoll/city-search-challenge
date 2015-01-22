@@ -60,7 +60,7 @@ sets up a watcher that converts .scss files into .css files as they're saved.
 $ grunt android
 ```
 
-performs a production Android build, complete with compressed JavaScript and CSS, as well as optimized images. And
+performs a production Android build, complete with the compression of HTML, CSS, JavaScript, and image assets. And finally,
 
 ```
 $ grunt ios
