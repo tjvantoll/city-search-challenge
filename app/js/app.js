@@ -250,6 +250,18 @@
 			changeDifficulty();
 			setGameState( "search" );
 		});
+
+		// Intercept clicks on the Google links during the capture phase and
+		// open them in an in-app browser.
+		document.querySelector( "#map" ).addEventListener( "click", function( event ) {
+			var elements = $( event.target ).parents().andSelf(),
+				googleLinks = elements.filter( "a[href*=google]" );
+			if ( googleLinks.length > 0 ) {
+				event.stopPropagation();
+				event.preventDefault();
+				window.open( googleLinks.attr( "href" ), "_blank" );
+			}
+		}, true );
 	}
 
 	function init() {
