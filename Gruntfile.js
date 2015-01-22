@@ -44,6 +44,11 @@ module.exports = function( grunt ) {
 				]
 			}
 		},
+		smushit: {
+			all: {
+				src: [ "app/img/**/*.png" ]
+			}
+		},
 		appbuilder: {
 			options: {
 				debug: false
@@ -74,13 +79,14 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-html" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+	grunt.loadNpmTasks( "grunt-smushit" );
 	grunt.loadNpmTasks( "grunt-contrib-appbuilder" );
 
+	grunt.registerTask( "default", [ "lint" ]);
+
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
-	grunt.registerTask( "compress", [ "uglify", "cssmin" ]);
+	grunt.registerTask( "compress", [ "uglify", "cssmin", "smushit" ]);
 
 	grunt.registerTask( "android", [ "lint", "compress", "appbuilder:android" ] );
 	grunt.registerTask( "ios", [ "lint", "compress", "appbuilder:ios" ] );
-
-	grunt.registerTask( "default", [ "lint" ]);
 };
