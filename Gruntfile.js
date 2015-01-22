@@ -3,6 +3,12 @@ module.exports = function( grunt ) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON( "package.json" ),
+		watch: {
+			sass: {
+				files: [ "app/scss/**/*.scss" ],
+				tasks: [ "sass" ]
+			}
+		},
 		jshint: {
 			options: {
 				jshintrc: true
@@ -23,6 +29,13 @@ module.exports = function( grunt ) {
 		},
 		htmllint: {
 			all: [ "app/*.html" ]
+		},
+		sass: {
+			dist: {
+				files: {
+					"app/css/app.css": "app/scss/app.scss"
+				}
+			}
 		},
 		uglify: {
 			all: {
@@ -73,10 +86,12 @@ module.exports = function( grunt ) {
 		}
 	});
 
+	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-jscs" );
 	grunt.loadNpmTasks( "grunt-contrib-csslint" );
 	grunt.loadNpmTasks( "grunt-html" );
+	grunt.loadNpmTasks( "grunt-sass" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-smushit" );
