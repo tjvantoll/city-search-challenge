@@ -13,10 +13,9 @@ module.exports = function( grunt ) {
 			main: {
 				files: [
 					{
-						expand: true,
-						src: [ "app/*" ],
+						src: [ "app/**/*" ],
 						dest: "dist/",
-						flatten: true
+						dot: true
 					}
 				]
 			}
@@ -30,7 +29,7 @@ module.exports = function( grunt ) {
 					platform: "android"
 				},
 				files: {
-					"app.apk": [ "app" ]
+					"app.apk": [ "dist/app" ]
 				}
 			},
 			ios: {
@@ -39,7 +38,7 @@ module.exports = function( grunt ) {
 					provision: "iOS Distribution"
 				},
 				files: {
-					"app.ipa": [ "app" ]
+					"app.ipa": [ "dist/app" ]
 				}
 			}
 		},
@@ -76,7 +75,7 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						src: "app/js/**/*.js"
+						src: "dist/app/js/**/*.js"
 					}
 				]
 			}
@@ -86,14 +85,9 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						src: "app/css/**/*.css"
+						src: "dist/app/css/**/*.css"
 					}
 				]
-			}
-		},
-		smushit: {
-			all: {
-				src: [ "app/img/**/*.png" ]
 			}
 		},
 		htmlmin: {
@@ -105,7 +99,7 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						src: "app/**/*.html"
+						src: "dist/**/*.html"
 					}
 				]
 			}
@@ -127,14 +121,13 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-sass" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
-	grunt.loadNpmTasks( "grunt-smushit" );
 	grunt.loadNpmTasks( "grunt-contrib-htmlmin" );
 
 	grunt.registerTask( "default", [ "lint" ]);
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
-	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin", "smushit" ]);
+	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin" ]);
 
-	grunt.registerTask( "android", [ "lint", "optimize", "appbuilder:android" ] );
-	grunt.registerTask( "ios", [ "lint", "optimize", "appbuilder:ios" ] );
+	grunt.registerTask( "android", [ "lint", "copy", "optimize", "appbuilder:android" ] );
+	grunt.registerTask( "ios", [ "lint", "copy", "optimize", "appbuilder:ios" ] );
 };
