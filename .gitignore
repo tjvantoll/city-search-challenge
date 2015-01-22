@@ -1,8 +1,8 @@
-*/.ab
-*/.ab/*
+*/.ab/
 *.apk
 *.ipa
 *.xap
 node_modules/
 npm-debug.log
-app/css/*
+app/css/
+dist/
