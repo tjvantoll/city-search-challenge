@@ -57,13 +57,13 @@ $ grunt watch
 sets up a watcher that converts .scss files into .css files as they're saved.
 
 ```
-$ grunt android
+$ grunt build:android
 ```
 
 performs a production Android build, complete with the compression of HTML, CSS, and JavaScript assets. And finally,
 
 ```
-$ grunt ios
+$ grunt build:ios
 ```
 
 performs the same tasks but for iOS.

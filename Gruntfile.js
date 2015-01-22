@@ -103,6 +103,18 @@ module.exports = function( grunt ) {
 					}
 				]
 			}
+		},
+		imagemin: {
+			all: {
+				files: [
+					{
+						expand: true,
+						cwd: "dist/app/img/",
+						src: [ "**/*.{png,gif,jpg}" ],
+						dest: "dist/app/img/"
+					}
+				]
+			}
 		}
 	});
 
@@ -122,12 +134,13 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-contrib-htmlmin" );
+	grunt.loadNpmTasks( "grunt-contrib-imagemin" );
 
 	grunt.registerTask( "default", [ "lint" ]);
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
-	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin" ]);
-
-	grunt.registerTask( "android", [ "lint", "copy", "optimize", "appbuilder:android" ] );
-	grunt.registerTask( "ios", [ "lint", "copy", "optimize", "appbuilder:ios" ] );
+	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin", "imagemin" ]);
+	grunt.registerTask( "build", [ "lint", "copy", "optimize" ]);
+	grunt.registerTask( "build:android", [ "build", "appbuilder:android" ] );
+	grunt.registerTask( "build:ios", [ "build", "appbuilder:ios" ] );
 };
