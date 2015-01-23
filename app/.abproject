@@ -5,7 +5,7 @@
 	"DisplayName": "CitySearch",
 	"Author": "TJ VanToll",
 	"Description": "Test your geography skills by locating cities from around the world",
-	"BundleVersion": "2.0.0",
+	"BundleVersion": "2.0.1",
 	"Framework": "Cordova",
 	"FrameworkVersion": "3.7.0",
 	"ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
@@ -21,7 +21,7 @@
 		"Landscape"
 	],
 	"AndroidHardwareAcceleration": "false",
-	"AndroidVersionCode": "3",
+	"AndroidVersionCode": "4",
 	"iOSStatusBarStyle": "Default",
 	"iOSDeviceFamily": [
 		"1",
