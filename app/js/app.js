@@ -84,7 +84,7 @@
 
 	function handleUserSelection( event ) {
 		// Ignore selections if the results are already up
-		if ( $( "body" ).hasClass( "results" ) ) {
+		if ( !$( "body" ).hasClass( "search" ) ) {
 			return;
 		}
 
