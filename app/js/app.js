@@ -9,6 +9,8 @@
 		maps = window.maps,
 		scoring = window.scoring,
 
+		cityIndex = Math.floor( Math.random() * cities.length ) - 1,
+
 		// An object containing information on the city the user is looking for
 		currentCity,
 
@@ -62,7 +64,12 @@
 		var city,
 			selectionMade = false;
 		while ( !selectionMade ) {
-			city = cities[ Math.floor( Math.random() * cities.length ) ];
+			cityIndex++;
+			if ( cityIndex === cities.length ) {
+				cityIndex = 0;
+			}
+
+			city = cities[ cityIndex ];
 			if ( !useCity( city ) ) {
 				continue;
 			}

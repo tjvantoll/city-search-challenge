@@ -4,7 +4,24 @@
 var inputFilename = "cities.txt",
 	outputFilename = "app/js/external/cities.js",
 	countries = require( "./countries" ),
-	fs = require( "fs" );
+	fs = require( "fs" ),
+	cities = [];
+
+// Randomize array element order in-place.
+// Using Fisher-Yates shuffle algorithm.
+// http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array#answer-12646864
+function shuffleArray( array ) {
+	var j,
+		temp,
+		i = array.length - 1;
+	for ( ; i > 0; i-- ) {
+		j = Math.floor( Math.random() * ( i + 1 ) );
+		temp = array[ i ];
+		array[ i ] = array[ j ];
+		array[ j ] = temp;
+	}
+	return array;
+}
 
 fs.writeFileSync( outputFilename, "window.cities = [\n" );
 fs.readFile( inputFilename, function( error, data ) {
@@ -37,8 +54,13 @@ fs.readFile( inputFilename, function( error, data ) {
 
 		// Only use cities that have at least 300,000 people
 		if ( city.population > 300000 ) {
-			fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
+			cities.push( city );
 		}
+	});
+
+	shuffleArray( cities );
+	cities.forEach(function( city ) {
+		fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
 	});
 
 	fs.appendFileSync( outputFilename, "];" );
