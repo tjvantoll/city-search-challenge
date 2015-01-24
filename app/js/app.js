@@ -143,7 +143,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome level search city-results" )
+			.removeClass( "welcome level search city-results level-results" )
 			.addClass( state );
 	}
 
@@ -173,13 +173,17 @@
 		return city;
 	}
 
-	function setNewCity() {
+	function clearMap() {
 		// Remove the previous answer's marker
 		if ( correctMarker ) {
 			correctMarker.setMap( null );
 			selectedMarker.setMap( null );
 			path.setMap( null );
 		}
+	}
+
+	function setNewCity() {
+		clearMap();
 		map.setOptions({
 			zoom: 2,
 			styles: pickMapStyles()
@@ -187,6 +191,7 @@
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = pickNextCity();
 		$( ".search-city-number" ).text( cityNumber );
+		$( ".search-cities-per-level" ).text( levels.getCitiesPerLevel() );
 		$( ".search-city" ).html(
 			levels.showCountryNames() ? currentCity.formattedName : currentCity.name
 		);
@@ -201,6 +206,10 @@
 		$( ".level-population" ).text( addCommas( levels.getPopulationRequirement() ) );
 		$( ".level-country-names" ).text( levels.showCountryNames() ? "On" : "Off" );
 		$( ".level-country-borders" ).text( levels.showCountryBorders() ? "On" : "Off" );
+	}
+
+	function showLevelResultsScreen() {
+		clearMap();
 	}
 
 	function attachEvents() {
@@ -220,8 +229,13 @@
 			window.open( $( this ).attr( "href" ), "_blank" );
 		});
 		$( ".city-results-next" ).on( "touchend", function() {
-			setNewCity();
-			setGameState( "search" );
+			if ( cityNumber > levels.getCitiesPerLevel() ) {
+				showLevelResultsScreen();
+				setGameState( "level-results" );
+			} else {
+				setNewCity();
+				setGameState( "search" );
+			}
 		});
 
 		// Intercept clicks on the Google links during the capture phase and

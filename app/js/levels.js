@@ -52,6 +52,9 @@
 		getCurrent: function() {
 			return currentLevel;
 		},
+		getCitiesPerLevel: function() {
+			return 5;
+		},
 		levelUp: function() {
 			currentLevel++;
 		},
