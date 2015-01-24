@@ -10,45 +10,32 @@
 		data = {
 			1: {
 				population: 4000000,
-				km: 200000,
-				aids: {
-					countryNames: true,
-					countryBorders: true
-				}
+				km: 200000
 			},
 			2: {
 				population: 3000000,
-				km: 100000,
-				aids: {
-					countryNames: true,
-					countryBorders: true
-				}
+				km: 100000
 			},
 			3: {
 				population: 2000000,
-				km: 50000,
-				aids: {
-					countryNames: false,
-					countryBorders: true
-				}
+				km: 50000
 			},
 			4: {
 				population: 1000000,
-				km: 50000,
-				aids: {
-					countryNames: false,
-					countryBorders: true
-				}
+				km: 50000
 			},
 			5: {
 				population: 500000,
-				km: 50000,
-				aids: {
-					countryNames: false,
-					countryBorders: false
-				}
+				km: 50000
 			}
 		};
+
+	Object.keys( data ).forEach(function( key ) {
+		data[ key ].aids = {
+			countryNames: ( key < 3 ),
+			countryBorders: ( key < 5 )
+		};
+	});
 
 	window.levels = {
 		getCurrent: function() {
