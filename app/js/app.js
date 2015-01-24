@@ -2,14 +2,16 @@
 (function() {
 	"use strict";
 
-	// Create a reference to the global cities data from cities.js.
+	// Create a reference to the global cities and levels data
 	var cities = window.cities,
+		levels = window.levels,
 
 		// An object containing information on the city the user is looking for
 		currentCity,
 
-		// A string containing the current difficulty of the game (Easy, Medium, of Hard)
-		currentDifficulty = "Easy",
+		// The city number (1–5) the user is currently on
+		cityNumber = 1,
+		cityResults = [],
 
 		// A reference to the Google map object
 		map,
@@ -17,12 +19,6 @@
 		labelsOff = {
 			featureType: "all",
 			elementType: "labels",
-			stylers: [
-				{ visibility: "off" }
-			]
-		},
-		roadsOff = {
-			featureType: "road",
 			stylers: [
 				{ visibility: "off" }
 			]
@@ -94,10 +90,13 @@
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
 
-		$( "#results-city-name" ).text( currentCity.formattedName );
-		$( "#results-km-off" ).text( addCommas( kmDifference ) );
-		$( "#results-mi-off" ).text( addCommas( miDifference ) );
-		$( "#results-grade" ).text( determineGrade( difference ) );
+		$( ".city-results-city-name" ).text( currentCity.formattedName );
+		$( ".city-results-km-off" ).text( addCommas( kmDifference ) );
+		$( ".city-results-mi-off" ).text( addCommas( miDifference ) );
+		$( ".city-results-grade" ).text( determineGrade( difference ) );
+
+		cityNumber++;
+		cityResults.push({ difference: kmDifference, city: currentCity.formattedName });
 
 		handleMarkers( selected.lat, selected.lon );
 	}
@@ -138,34 +137,27 @@
 			path.setMap( map );
 
 			map.panTo( panPosition );
-			setGameState( "results" );
+			setGameState( "city-results" );
 		}, 500 );
 	}
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome search results difficulty" )
+			.removeClass( "welcome level search city-results" )
 			.addClass( state );
 	}
 
 	function useCity( city ) {
 		// Apply different logic for India and China because of their populations
 		if ( city.countryCode  === "IN" || city.countryCode === "CN" ) {
-			if ( currentDifficulty === "Easy" && city.population < 4000000 ) {
-				return false;
-			}
-			if ( currentDifficulty === "Medium" && city.population < 2000000 ) {
-				return false;
-			}
+			return city.population > ( levels.getPopulationRequirement() * 2 );
 		}
+		return city.population > levels.getPopulationRequirement();
+	}
 
-		if ( currentDifficulty === "Easy" && city.population < 1000000 ) {
-			return false;
-		}
-		if ( currentDifficulty === "Medium" && city.population < 500000 ) {
-			return false;
-		}
-		return true;
+	function pickMapStyles() {
+		return levels.showCountryBorders() ?
+			[ labelsOff ] : [ labelsOff, countryBordersOff ];
 	}
 
 	function pickNextCity() {
@@ -181,21 +173,6 @@
 		return city;
 	}
 
-	function displayCityName() {
-		return currentDifficulty === "Easy" ? currentCity.formattedName : currentCity.name;
-	}
-
-	function pickMapStyles() {
-		switch ( currentDifficulty ) {
-			case "Easy":
-				return [ labelsOff ];
-			case "Medium":
-				return [ labelsOff, roadsOff ];
-			case "Hard":
-				return [ labelsOff, roadsOff, countryBordersOff ];
-		}
-	}
-
 	function setNewCity() {
 		// Remove the previous answer's marker
 		if ( correctMarker ) {
@@ -209,45 +186,41 @@
 		});
 		map.panTo( new google.maps.LatLng( 0, 0 ) );
 		currentCity = pickNextCity();
-		$( "#search-city" ).html( displayCityName() );
-		$( "div.results a" ).attr( "href",
+		$( ".search-city-number" ).text( cityNumber );
+		$( ".search-city" ).html(
+			levels.showCountryNames() ? currentCity.formattedName : currentCity.name
+		);
+		$( "div.city-results a" ).attr( "href",
 			"http://en.wikipedia.org/w/index.php?search=" + currentCity.name );
 	}
 
-	function changeDifficulty() {
-		var difficultyDisplay = $( "#search-difficulty" ),
-			previousDifficulty = difficultyDisplay.text();
-
-		currentDifficulty = $( "#difficulty-selection .active" ).text().trim();
-
-		if ( previousDifficulty !== currentDifficulty ) {
-			difficultyDisplay.text( currentDifficulty );
-			setNewCity();
-		}
+	function showLevelScreen() {
+		$( ".level-number" ).text( levels.getCurrent() );
+		$( ".level-km" ).text( addCommas( levels.getKmRequirement() ) );
+		$( ".level-max" ).text( levels.getMax() );
+		$( ".level-population" ).text( addCommas( levels.getPopulationRequirement() ) );
+		$( ".level-country-names" ).text( levels.showCountryNames() ? "On" : "Off" );
+		$( ".level-country-borders" ).text( levels.showCountryBorders() ? "On" : "Off" );
 	}
 
 	function attachEvents() {
 		$( "div.welcome button" ).on( "touchend", function() {
+			showLevelScreen();
+			setGameState( "level" );
+		});
+		$( "div.level button" ).on( "touchend", function() {
 			setGameState( "search" );
 		});
 		$( "div.search a" ).on( "touchend", function( event ) {
 			event.preventDefault();
 			setGameState( "difficulty" );
 		});
-		$( "div.results a" ).on( "click", function( event ) {
+		$( "div.city-results a" ).on( "click", function( event ) {
 			event.preventDefault();
 			window.open( $( this ).attr( "href" ), "_blank" );
 		});
-		$( "#results-next" ).on( "touchend", function() {
+		$( ".city-results-next" ).on( "touchend", function() {
 			setNewCity();
-			setGameState( "search" );
-		});
-		$( "#difficulty-selection li" ).on( "touchend", function() {
-			$( this ).siblings().removeClass( "active" );
-			$( this ).addClass( "active" );
-		});
-		$( "div.difficulty button" ).on( "touchend", function() {
-			changeDifficulty();
 			setGameState( "search" );
 		});
 

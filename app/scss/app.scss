@@ -11,14 +11,14 @@ html, body, #map {
 
 body .welcome,
 body .search,
-body .results,
-body .difficulty {
+body .city-results,
+body .level {
 	display: none;
 }
 body.welcome .welcome,
 body.search .search,
-body.results .results,
-body.difficulty .difficulty {
+body.city-results .city-results,
+body.level .level {
 	display: block;
 }
 
@@ -45,6 +45,14 @@ div.welcome {
 	top: 20%;
 }
 
+/**** Level Section ****/
+div.level {
+	top: 10%;
+}
+div.level li {
+	margin: 1em 0;
+}
+
 /**** Search Section ****/
 div.search {
 	width: 100%;
@@ -64,7 +72,7 @@ div.search {
 div.search p {
 	margin: 0;
 }
-div.search span {
+.search-city {
 	font-weight: bold;
 }
 div.search ul {
@@ -75,30 +83,9 @@ div.search a {
 }
 
 /**** Results Section ****/
-div.results {
+div.city-results {
 	bottom: 0;
 }
-#results-grade {
+.city-results-grade {
 	font-weight: bold;
-}
-
-/**** Difficulty Section ****/
-div.difficulty {
-	top: 10%;
-	padding: 1em;
-}
-.radio-list {
-	padding: 0;
-	list-style-type: none;
-}
-.radio-list li {
-	padding: 1em;
-	margin: 0.2em;
-	border: 2px dotted gray;
-	border-radius: 5px;
-}
-.radio-list .active {
-	font-weight: bold;
-	border-color: black;
-	border-style: solid;
 }
