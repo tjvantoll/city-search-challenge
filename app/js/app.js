@@ -1,47 +1,20 @@
-/* global $, google */
+/* global $ */
 (function() {
 	"use strict";
 
-	// Create a reference to the global cities and levels data
+	// Create a reference to the global dependencies
 	var cities = window.cities,
 		levels = window.levels,
+		maps = window.maps,
 
 		// An object containing information on the city the user is looking for
 		currentCity,
 
 		// The city number (1–5) the user is currently on
 		cityNumber = 1,
-		cityResults = [],
 
-		// A reference to the Google map object
-		map,
-
-		labelsOff = {
-			featureType: "all",
-			elementType: "labels",
-			stylers: [
-				{ visibility: "off" }
-			]
-		},
-		countryBordersOff = {
-			featureType: "administrative.country",
-			elementType: "geometry.stroke",
-			stylers: [
-				{ visibility: "off" }
-			]
-		},
-
-		// Google Maps markers and paths being displayed on the screen
-		correctMarker, selectedMarker, path;
-
-	function buildMap() {
-		map = new google.maps.Map( document.getElementById( "map" ), {
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: true,
-			zoomControl: true
-		});
-		google.maps.event.addListener( map, "click", handleUserSelection );
-	}
+		// An array of results of the user's selections
+		cityResults = [];
 
 	function addCommas( num ) {
 		return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
@@ -78,13 +51,13 @@
 		}
 	}
 
-	function handleUserSelection( event ) {
+	function handleUserSelection( event, latitude, longitude ) {
 		// Ignore selections if the results are already up
 		if ( !$( "body" ).hasClass( "search" ) ) {
 			return;
 		}
 
-		var selected = new window.LatLon( event.latLng.k, event.latLng.D ),
+		var selected = new window.LatLon( latitude, longitude ),
 			correct = new window.LatLon( currentCity.latitude, currentCity.longitude ),
 			difference = selected.distanceTo( correct ),
 			kmDifference = Math.floor( difference ),
@@ -98,47 +71,10 @@
 		cityNumber++;
 		cityResults.push({ difference: kmDifference, city: currentCity.formattedName });
 
-		handleMarkers( selected.lat, selected.lon );
-	}
-
-	function handleMarkers( selectedLatitude, selectedLongitude ) {
-		var correctPosition = new google.maps.LatLng(
-				currentCity.latitude, currentCity.longitude ),
-			selectedPosition = new google.maps.LatLng(
-				selectedLatitude, selectedLongitude ),
-			panPosition = new google.maps.LatLng(
-				currentCity.latitude - 30, currentCity.longitude );
-
-		selectedMarker = new google.maps.Marker({
-			position: selectedPosition,
-			title: "Your selection",
-			icon: "img/red-marker.png"
-		});
-		selectedMarker.setMap( map );
-
-		// Empty the custom styles to show the map labels when the
-		// answer is revealed
-		map.setOptions({ styles: [], zoom: 2 });
-
-		setTimeout(function() {
-			correctMarker = new google.maps.Marker({
-				position: correctPosition,
-				title: currentCity.name,
-				icon: "img/green-marker.png"
+		maps.addMarkers( currentCity, selected.lat, selected.lon )
+			.then(function() {
+				setGameState( "city-results" );
 			});
-			correctMarker.setMap( map );
-
-			path = new google.maps.Polyline({
-				path: [ correctPosition, selectedPosition ],
-				strokeColor: "#FF0000",
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			});
-			path.setMap( map );
-
-			map.panTo( panPosition );
-			setGameState( "city-results" );
-		}, 500 );
 	}
 
 	function setGameState( state ) {
@@ -155,11 +91,6 @@
 		return city.population > levels.getPopulationRequirement();
 	}
 
-	function pickMapStyles() {
-		return levels.showCountryBorders() ?
-			[ labelsOff ] : [ labelsOff, countryBordersOff ];
-	}
-
 	function pickNextCity() {
 		var city,
 			selectionMade = false;
@@ -173,22 +104,8 @@
 		return city;
 	}
 
-	function clearMap() {
-		// Remove the previous answer's marker
-		if ( correctMarker ) {
-			correctMarker.setMap( null );
-			selectedMarker.setMap( null );
-			path.setMap( null );
-		}
-	}
-
 	function setNewCity() {
-		clearMap();
-		map.setOptions({
-			zoom: 2,
-			styles: pickMapStyles()
-		});
-		map.panTo( new google.maps.LatLng( 0, 0 ) );
+		maps.reset();
 		currentCity = pickNextCity();
 		$( ".search-city-number" ).text( cityNumber );
 		$( ".search-cities-per-level" ).text( levels.getCitiesPerLevel() );
@@ -209,7 +126,7 @@
 	}
 
 	function showLevelResultsScreen() {
-		clearMap();
+		maps.clear();
 	}
 
 	function attachEvents() {
@@ -237,18 +154,7 @@
 				setGameState( "search" );
 			}
 		});
-
-		// Intercept clicks on the Google links during the capture phase and
-		// open them in an in-app browser.
-		document.querySelector( "#map" ).addEventListener( "click", function( event ) {
-			var elements = $( event.target ).parents().andSelf(),
-				googleLinks = elements.filter( "a[href*=google]" );
-			if ( googleLinks.length > 0 ) {
-				event.stopPropagation();
-				event.preventDefault();
-				window.open( googleLinks.attr( "href" ), "_blank" );
-			}
-		}, true );
+		$.subscribe( "maps.selection", handleUserSelection );
 	}
 
 	function init() {
@@ -257,7 +163,7 @@
 			$( "body" ).addClass( "iOS" );
 		}
 
-		buildMap();
+		maps.build();
 		setNewCity();
 		attachEvents();
 		navigator.splashscreen.hide();
