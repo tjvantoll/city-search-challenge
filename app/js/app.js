@@ -111,6 +111,7 @@
 		$( ".level-results-total" ).text( format.addCommas( totalDistance ) );
 		$( ".level-results-max" ).text( format.addCommas( levels.getKmRequirement() ) );
 		$( ".level-results-judgment" ).text( success ? "PASS!" : "FAIL" );
+		$( ".level-results-start-over" ).toggle( levels.getCurrent() > 1 );
 
 		// Reset the game state
 		cityNumber = 1;
@@ -121,6 +122,13 @@
 		if ( success ) {
 			levels.levelUp();
 		}
+	}
+
+	function restartGame() {
+		levels.reset();
+		setNewCity();
+		showLevelScreen();
+		setGameState( "level" );
 	}
 
 	function attachEvents() {
@@ -158,12 +166,14 @@
 				setGameState( "level" );
 			}
 		});
-		$( ".congrats-button" ).on( "touchend", function() {
-			levels.reset();
-			setNewCity();
-			showLevelScreen();
-			setGameState( "level" );
+		$( ".level-results-start-over" ).on( "touchend", function() {
+			navigator.notification.confirm( "The game will be reset to level 1.", function( index ) {
+				if ( index === 1 ) {
+					restartGame();
+				}
+			});
 		});
+		$( ".congrats-button" ).on( "touchend", restartGame );
 	}
 
 	function init() {
