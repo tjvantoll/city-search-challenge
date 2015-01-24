@@ -117,7 +117,7 @@
 		$( ".level-results-judgment" )
 			.text( success ? "SUCCESS!" : "FAIL" )
 			.removeClass( "pass fail" )
-			.addClass( success ? "pass": "fail" );
+			.addClass( success ? "pass" : "fail" );
 		$( ".level-results-total" )
 			.text( format.addCommas( totalDistance ) )
 			.removeClass( "pass fail" )
@@ -179,11 +179,13 @@
 			}
 		});
 		$( ".level-results-start-over" ).on( "touchend", function() {
-			navigator.notification.confirm( "The game will be reset to level 1.", function( index ) {
-				if ( index === 1 ) {
-					restartGame();
+			navigator.notification.confirm( "The game will be reset to level 1.",
+				function( index ) {
+					if ( index === 1 ) {
+						restartGame();
+					}
 				}
-			});
+			);
 		});
 		$( ".congrats-button" ).on( "touchend", restartGame );
 	}
