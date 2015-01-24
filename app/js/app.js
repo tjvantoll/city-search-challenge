@@ -4,8 +4,10 @@
 
 	// Create a reference to the global dependencies
 	var cities = window.cities,
+		format = window.format,
 		levels = window.levels,
 		maps = window.maps,
+		scoring = window.scoring,
 
 		// An object containing information on the city the user is looking for
 		currentCity,
@@ -15,41 +17,6 @@
 
 		// An array of results of the user's selections
 		cityResults = [];
-
-	function addCommas( num ) {
-		return num.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, "$1," );
-	}
-
-	function determineGrade( distance ) {
-		switch ( true ) {
-			case distance < 100:
-				return "A+";
-			case distance < 250:
-				return "A";
-			case distance < 500:
-				return "A-";
-			case distance < 1000:
-				return "B+";
-			case distance < 2000:
-				return "B";
-			case distance < 3000:
-				return "B-";
-			case distance < 4500:
-				return "C+";
-			case distance < 6000:
-				return "C";
-			case distance < 7500:
-				return "C-";
-			case distance < 10000:
-				return "D+";
-			case distance < 15000:
-				return "D";
-			case distance < 20000:
-				return "D-";
-			default:
-				return "E";
-		}
-	}
 
 	function handleUserSelection( event, latitude, longitude ) {
 		// Ignore selections if the results are already up
@@ -64,9 +31,9 @@
 			miDifference = Math.floor( difference * 0.6214 );
 
 		$( ".city-results-city-name" ).text( currentCity.formattedName );
-		$( ".city-results-km-off" ).text( addCommas( kmDifference ) );
-		$( ".city-results-mi-off" ).text( addCommas( miDifference ) );
-		$( ".city-results-grade" ).text( determineGrade( difference ) );
+		$( ".city-results-km-off" ).text( format.addCommas( kmDifference ) );
+		$( ".city-results-mi-off" ).text( format.addCommas( miDifference ) );
+		$( ".city-results-grade" ).text( scoring.determineGrade( difference ) );
 
 		cityNumber++;
 		cityResults.push({ difference: kmDifference, city: currentCity.formattedName });
@@ -118,9 +85,9 @@
 
 	function showLevelScreen() {
 		$( ".level-number" ).text( levels.getCurrent() );
-		$( ".level-km" ).text( addCommas( levels.getKmRequirement() ) );
-		$( ".level-max" ).text( levels.getMax() );
-		$( ".level-population" ).text( addCommas( levels.getPopulationRequirement() ) );
+		$( ".level-km" ).text( format.addCommas( levels.getKmRequirement() ) );
+		$( ".level-max" ).text( levels.getNumberOfLevels() );
+		$( ".level-population" ).text( format.addCommas( levels.getPopulationRequirement() ) );
 		$( ".level-country-names" ).text( levels.showCountryNames() ? "On" : "Off" );
 		$( ".level-country-borders" ).text( levels.showCountryBorders() ? "On" : "Off" );
 	}

@@ -3,6 +3,8 @@
 
 	// The current state of the game
 	var currentLevel = 1,
+		CITIES_PER_LEVEL = 3,
+		NUMBER_OF_LEVELS = 5,
 
 		// Raw data on the levels themselves
 		data = {
@@ -53,13 +55,13 @@
 			return currentLevel;
 		},
 		getCitiesPerLevel: function() {
-			return 5;
+			return CITIES_PER_LEVEL;
 		},
 		levelUp: function() {
 			currentLevel++;
 		},
-		getMax: function() {
-			return 5;
+		getNumberOfLevels: function() {
+			return NUMBER_OF_LEVELS;
 		},
 		getKmRequirement: function() {
 			return data[ currentLevel ].km;
