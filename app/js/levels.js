@@ -6,25 +6,25 @@
 
 		// Raw data on the levels themselves
 		data = {
-			1:  { population: 3000000, km: 10000 },
-			2:  { population: 2500000, km: 9000 },
-			3:  { population: 2000000, km: 8000 },
-			4:  { population: 1500000, km: 7000 },
-			5:  { population: 1000000, km: 6000 },
+			1:  { population: 2500000, km: 10000 },
+			2:  { population: 2000000, km: 9000 },
+			3:  { population: 1500000, km: 8000 },
+			4:  { population: 1000000, km: 7000 },
+			5:  { population: 750000,  km: 6000 },
 
 			// Country borders go away
-			6:  { population: 1500000, km: 6000 },
-			7:  { population: 1250000, km: 5000 },
-			8:  { population: 1000000, km: 4000 },
-			9:  { population: 875000,  km: 3000 },
-			10: { population: 750000,  km: 2000 },
+			6:  { population: 1000000, km: 8000 },
+			7:  { population: 850000,  km: 7000 },
+			8:  { population: 600000,  km: 6000 },
+			9:  { population: 450000,  km: 5000 },
+			10: { population: 300000,  km: 4000 },
 
 			// Country names go away
-			11: { population: 1250000, km: 5000 },
-			12: { population: 1000000, km: 4000 },
-			13: { population: 800000,  km: 3000 },
-			14: { population: 600000,  km: 2000 },
-			15: { population: 300000,  km: 1000 }
+			11: { population: 1500000, km: 8500 },
+			12: { population: 1250000, km: 7000 },
+			13: { population: 1000000, km: 6000 },
+			14: { population: 750000,  km: 5000 },
+			15: { population: 500000,  km: 4000 }
 		},
 
 		// Constants
