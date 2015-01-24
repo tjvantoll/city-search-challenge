@@ -23,6 +23,12 @@
 			stylers: [
 				{ visibility: "off" }
 			]
+		},
+		roadsOff = {
+			featureType: "road",
+			stylers: [
+				{ visibility: "off" }
+			]
 		};
 
 	// Intercept clicks on the Google links during the capture phase and
@@ -41,7 +47,7 @@
 
 	function pickMapStyles() {
 		return levels.showCountryBorders() ?
-			[ labelsOff ] : [ labelsOff, countryBordersOff ];
+			[ labelsOff, roadsOff ] : [ labelsOff, roadsOff, countryBordersOff ];
 	}
 
 	window.maps = {
