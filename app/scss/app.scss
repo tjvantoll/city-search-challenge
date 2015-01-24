@@ -43,6 +43,14 @@ h1 {
 	background: white;
 	padding: 2em;
 }
+.pass {
+	font-weight: bold;
+	color: green;
+}
+.fail {
+	font-weight: bold;
+	color: red;
+}
 
 /**** Welcome Section ****/
 div.welcome {
@@ -111,13 +119,9 @@ div.level-results {
 .level-results-next {
 	margin-top: 0.5em;
 }
-.pass {
-	font-weight: bold;
-	color: green;
-}
-.fail {
-	font-weight: bold;
-	color: red;
+.level-results-list span {
+	display: inline-block;
+	width: 7em;
 }
 
 /**** Congrats Section ****/

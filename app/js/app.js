@@ -112,7 +112,7 @@
 
 		maps.clear();
 		cityResults.forEach(function( result ) {
-			html += "<li>" + result.city.name + ": " +
+			html += "<li><span>" + result.city.name + ":</span> " +
 				format.addCommas( result.difference ) + " km </li>";
 			totalDistance += result.difference;
 		});
