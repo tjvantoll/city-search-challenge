@@ -97,6 +97,18 @@ div.city-results {
 /**** Level Results Section ****/
 div.level-results {
 	top: 10%;
+
+	li {
+		margin: 0.5em 0;
+	}
+}
+.pass {
+	font-weight: bold;
+	color: green;
+}
+.fail {
+	font-weight: bold;
+	color: red;
 }
 
 /**** Congrats Section ****/

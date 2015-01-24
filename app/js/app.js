@@ -100,7 +100,7 @@
 		maps.clear();
 		cityResults.forEach(function( result ) {
 			html += "<li>" + result.city.name + ": " +
-				format.addCommas( result.difference ) + "</li>";
+				format.addCommas( result.difference ) + " km </li>";
 			totalDistance += result.difference;
 		});
 
@@ -108,9 +108,11 @@
 		$( ".level-results-level" ).text( levels.getCurrent() );
 		$( ".level-results-next" ).text( success ? "Next Level" : "Try Again" );
 		$( ".level-results-list" ).html( html );
-		$( ".level-results-total" ).text( format.addCommas( totalDistance ) );
+		$( ".level-results-total" )
+			.text( format.addCommas( totalDistance ) )
+			.removeClass( "pass fail" )
+			.addClass( success ? "pass" : "fail" );
 		$( ".level-results-max" ).text( format.addCommas( levels.getKmRequirement() ) );
-		$( ".level-results-judgment" ).text( success ? "PASS!" : "FAIL" );
 		$( ".level-results-start-over" ).toggle( levels.getCurrent() > 1 );
 
 		// Reset the game state
