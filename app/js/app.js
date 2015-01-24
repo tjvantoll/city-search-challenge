@@ -130,7 +130,7 @@
 			.removeClass( "pass fail" )
 			.addClass( success ? "pass" : "fail" );
 		$( ".level-results-max" ).text( format.addCommas( levels.getKmRequirement() ) );
-		$( ".level-results-start-over" ).toggle( levels.getCurrent() > 1 );
+		$( ".level-results-start-over" ).toggle( ( levels.getCurrent() > 1 ) || success );
 
 		// Reset the game state
 		cityNumber = 1;
