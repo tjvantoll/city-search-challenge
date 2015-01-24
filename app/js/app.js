@@ -46,7 +46,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome level search city-results level-results" )
+			.removeClass( "welcome level search city-results level-results congrats" )
 			.addClass( state );
 	}
 
@@ -150,6 +150,16 @@
 		});
 		$.subscribe( "maps.selection", handleUserSelection );
 		$( ".level-results-next" ).on( "touchend", function() {
+			if ( levels.getCurrent() > levels.getNumberOfLevels() ) {
+				setGameState( "congrats" );
+			} else {
+				setNewCity();
+				showLevelScreen();
+				setGameState( "level" );
+			}
+		});
+		$( ".congrats-button" ).on( "touchend", function() {
+			levels.reset();
 			setNewCity();
 			showLevelScreen();
 			setGameState( "level" );

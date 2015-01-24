@@ -13,15 +13,16 @@ body .welcome,
 body .level,
 body .search,
 body .city-results,
-body .level-results
- {
+body .level-results,
+body .congrats {
 	display: none;
 }
 body.welcome .welcome,
 body.level .level,
 body.search .search,
 body.city-results .city-results,
-body.level-results .level-results {
+body.level-results .level-results,
+body.congrats .congrats {
 	display: block;
 }
 
@@ -96,4 +97,9 @@ div.city-results {
 /**** Level Results Section ****/
 div.level-results {
 	top: 10%;
+}
+
+/**** Congrats Section ****/
+div.congrats {
+	top: 20%;
 }
