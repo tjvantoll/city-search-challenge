@@ -36,7 +36,7 @@
 		$( ".city-results-grade" ).text( scoring.determineGrade( difference ) );
 
 		cityNumber++;
-		cityResults.push({ difference: kmDifference, city: currentCity.formattedName });
+		cityResults.push({ difference: kmDifference, city: currentCity });
 
 		maps.addMarkers( currentCity, selected.lat, selected.lon )
 			.then(function() {
@@ -93,7 +93,34 @@
 	}
 
 	function showLevelResultsScreen() {
+		var success,
+			totalDistance = 0,
+			html = "";
+
 		maps.clear();
+		cityResults.forEach(function( result ) {
+			html += "<li>" + result.city.name + ": " +
+				format.addCommas( result.difference ) + "</li>";
+			totalDistance += result.difference;
+		});
+
+		success = totalDistance < levels.getKmRequirement();
+		$( ".level-results-level" ).text( levels.getCurrent() );
+		$( ".level-results-next" ).text( success ? "Next Level" : "Try Again" );
+		$( ".level-results-list" ).html( html );
+		$( ".level-results-total" ).text( format.addCommas( totalDistance ) );
+		$( ".level-results-max" ).text( format.addCommas( levels.getKmRequirement() ) );
+		$( ".level-results-judgment" ).text( success ? "PASS!" : "FAIL" );
+
+		// Reset the game state
+		cityNumber = 1;
+		while ( cityResults.length ) {
+			cityResults.pop();
+		}
+
+		if ( success ) {
+			levels.levelUp();
+		}
 	}
 
 	function attachEvents() {
@@ -122,6 +149,11 @@
 			}
 		});
 		$.subscribe( "maps.selection", handleUserSelection );
+		$( ".level-results-next" ).on( "touchend", function() {
+			setNewCity();
+			showLevelScreen();
+			setGameState( "level" );
+		});
 	}
 
 	function init() {
