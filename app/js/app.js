@@ -85,11 +85,17 @@
 
 	function showLevelScreen() {
 		$( ".level-number" ).text( levels.getCurrent() );
+		$( ".level-city-count" ).text( levels.getCitiesPerLevel() );
 		$( ".level-km" ).text( format.addCommas( levels.getKmRequirement() ) );
-		$( ".level-max" ).text( levels.getNumberOfLevels() );
 		$( ".level-population" ).text( format.addCommas( levels.getPopulationRequirement() ) );
-		$( ".level-country-names" ).text( levels.showCountryNames() ? "On" : "Off" );
-		$( ".level-country-borders" ).text( levels.showCountryBorders() ? "On" : "Off" );
+		$( ".level-country-names" )
+			.text( levels.showCountryNames() ? "On" : "Off" )
+			.removeClass( "pass fail" )
+			.addClass( levels.showCountryNames() ? "pass" : "fail" );
+		$( ".level-country-borders" )
+			.text( levels.showCountryBorders() ? "On" : "Off" )
+			.removeClass( "pass fail" )
+			.addClass( levels.showCountryBorders() ? "pass" : "fail" );
 	}
 
 	function showLevelResultsScreen() {
@@ -108,6 +114,10 @@
 		$( ".level-results-level" ).text( levels.getCurrent() );
 		$( ".level-results-next" ).text( success ? "Next Level" : "Try Again" );
 		$( ".level-results-list" ).html( html );
+		$( ".level-results-judgment" )
+			.text( success ? "SUCCESS!" : "FAIL" )
+			.removeClass( "pass fail" )
+			.addClass( success ? "pass": "fail" );
 		$( ".level-results-total" )
 			.text( format.addCommas( totalDistance ) )
 			.removeClass( "pass fail" )
