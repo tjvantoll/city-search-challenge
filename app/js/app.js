@@ -48,7 +48,7 @@
 
 	function setGameState( state ) {
 		$( "body" )
-			.removeClass( "welcome level search city-results level-results congrats" )
+			.removeClass( "welcome level search city-results level-results congrats offline" )
 			.addClass( state );
 	}
 
@@ -150,6 +150,21 @@
 		setGameState( "level" );
 	}
 
+	function handleOffline() {
+		setGameState( "offline" );
+	}
+
+	function handleOnline() {
+		if ( !window.google ) {
+			$.getScript( $( "#google-script" ).attr( "src" ) ).then(function() {
+				maps.build();
+				setGameState( "welcome" );
+			});
+		} else {
+			setGameState( "welcome" );
+		}
+	}
+
 	function attachEvents() {
 		$( "div.welcome button" ).on( "touchend", function() {
 			showLevelScreen();
@@ -195,6 +210,9 @@
 			);
 		});
 		$( ".congrats-button" ).on( "touchend", restartGame );
+
+		$( document ).on( "offline", handleOffline );
+		$( document ).on( "online", handleOnline );
 	}
 
 	function init() {
@@ -203,8 +221,14 @@
 			$( "body" ).addClass( "iOS" );
 		}
 
-		maps.build();
-		setNewCity();
+		// If the user is online
+		if ( window.google ) {
+			maps.build();
+			setNewCity();
+		} else {
+			handleOffline();
+		}
+
 		attachEvents();
 		navigator.splashscreen.hide();
 	}

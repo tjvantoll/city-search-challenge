@@ -14,7 +14,8 @@ body .level,
 body .search,
 body .city-results,
 body .level-results,
-body .congrats {
+body .congrats,
+body .offline {
 	display: none;
 }
 body.welcome .welcome,
@@ -22,7 +23,8 @@ body.level .level,
 body.search .search,
 body.city-results .city-results,
 body.level-results .level-results,
-body.congrats .congrats {
+body.congrats .congrats,
+body.offline .offline {
 	display: block;
 }
 
@@ -129,5 +131,10 @@ div.level-results {
 
 /**** Congrats Section ****/
 div.congrats {
+	top: 20%;
+}
+
+/**** Offline Section ****/
+div.offline {
 	top: 20%;
 }

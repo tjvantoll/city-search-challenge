@@ -13,6 +13,7 @@
 		"org.apache.cordova.device",
 		"org.apache.cordova.dialogs",
 		"org.apache.cordova.inappbrowser",
+		"org.apache.cordova.network-information",
 		"org.apache.cordova.splashscreen",
 		"com.telerik.plugin.eqatecanalytics"
 	],
