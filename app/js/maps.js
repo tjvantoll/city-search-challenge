@@ -86,6 +86,11 @@
 			});
 			map.panTo( new google.maps.LatLng( 0, 0 ) );
 		},
+		distanceBetween: function( lat1, lon1, lat2, long2 ) {
+			var one = new google.maps.LatLng( lat1, lon1 ),
+				two = new google.maps.LatLng( lat2, long2 );
+			return google.maps.geometry.spherical.computeDistanceBetween( one, two ) / 1000;
+		},
 		addMarkers: function( currentCity, selectedLatitude, selectedLongitude ) {
 			var promise = $.Deferred(),
 				correctPosition = new google.maps.LatLng(

@@ -26,9 +26,8 @@
 			return;
 		}
 
-		var selected = new window.LatLon( latitude, longitude ),
-			correct = new window.LatLon( currentCity.latitude, currentCity.longitude ),
-			difference = selected.distanceTo( correct ),
+		var difference = maps.distanceBetween(
+			currentCity.latitude, currentCity.longitude, latitude, longitude ),
 			kmDifference = Math.floor( difference ),
 			miDifference = Math.floor( difference * 0.6214 );
 
@@ -40,7 +39,7 @@
 		cityNumber++;
 		cityResults.push({ difference: kmDifference, city: currentCity });
 
-		maps.addMarkers( currentCity, selected.lat, selected.lon )
+		maps.addMarkers( currentCity, latitude, longitude )
 			.then(function() {
 				setGameState( "city-results" );
 			});
