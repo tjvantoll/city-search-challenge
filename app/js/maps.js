@@ -24,6 +24,13 @@
 				{ visibility: "off" }
 			]
 		},
+		stateBordersOff = {
+			featureType: "administrative.province",
+			elementType: "geometry.stroke",
+			stylers: [
+				{ visibility: "off" }
+			]
+		},
 		roadsOff = {
 			featureType: "road",
 			stylers: [
@@ -47,7 +54,8 @@
 
 	function pickMapStyles() {
 		return levels.showCountryBorders() ?
-			[ labelsOff, roadsOff ] : [ labelsOff, roadsOff, countryBordersOff ];
+			[ labelsOff, roadsOff ] :
+			[ labelsOff, roadsOff, stateBordersOff, countryBordersOff ];
 	}
 
 	window.maps = {
