@@ -4,24 +4,10 @@
 var inputFilename = "cities.txt",
 	outputFilename = "app/js/external/cities.js",
 	countries = require( "./countries" ),
+	_ = require( "lodash" ),
 	fs = require( "fs" ),
-	cities = [];
-
-// Randomize array element order in-place.
-// Using Fisher-Yates shuffle algorithm.
-// http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array#answer-12646864
-function shuffleArray( array ) {
-	var j,
-		temp,
-		i = array.length - 1;
-	for ( ; i > 0; i-- ) {
-		j = Math.floor( Math.random() * ( i + 1 ) );
-		temp = array[ i ];
-		array[ i ] = array[ j ];
-		array[ j ] = temp;
-	}
-	return array;
-}
+	citiesByCountry = {},
+	finalCityList = [];
 
 fs.writeFileSync( outputFilename, "window.cities = [\n" );
 fs.readFile( inputFilename, function( error, data ) {
@@ -52,14 +38,40 @@ fs.readFile( inputFilename, function( error, data ) {
 		city.formattedName = city.name + ", " +
 			countries[ city.countryCode ];
 
-		// Only use cities that have at least 300,000 people
-		if ( city.population > 300000 ) {
-			cities.push( city );
+		if ( !citiesByCountry[ city.countryCode ] ) {
+			citiesByCountry[ city.countryCode ] = [];
+		}
+		citiesByCountry[ city.countryCode ].push( city );
+	});
+
+	Object.keys( citiesByCountry ).forEach(function( code ) {
+		var city,
+			list = citiesByCountry[ code ],
+			sortedList = _.sortBy( list, function( o ) {
+				return -o.population;
+			}),
+			i = 0;
+
+		for ( ; i <= 5; i++ ) {
+			city = sortedList[ i ];
+			if ( city && city.population > 300000 ) {
+				finalCityList.push( city );
+			}
+		}
+
+		city = sortedList[ 0 ];
+		if ( city ) {
+			// Flag the largest city in each country
+			city.largestInCountry = true;
+
+			// Let in a few more cities that are the largest in their countries
+			if ( city.population < 300000 && city.population > 50000 ) {
+				finalCityList.push ( city );
+			}
 		}
 	});
 
-	shuffleArray( cities );
-	cities.forEach(function( city ) {
+	_.shuffle( finalCityList ).forEach(function( city ) {
 		fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
 	});
 

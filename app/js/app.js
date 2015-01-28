@@ -53,6 +53,9 @@
 	}
 
 	function useCity( city ) {
+		if ( city.largestInCountry ) {
+			return true;
+		}
 		// Apply different logic for India and China because of their populations
 		if ( city.countryCode  === "IN" || city.countryCode === "CN" ) {
 			return city.population > ( levels.getPopulationRequirement() * 3 );

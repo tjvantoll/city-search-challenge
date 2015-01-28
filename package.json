@@ -14,7 +14,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-html": "^1.6.0",
     "grunt-jscs": "^1.2.0",
-    "grunt-sass": "^0.17.0"
+    "grunt-sass": "^0.17.0",
+    "lodash": "^3.0.0"
   },
   "repository": {
     "type": "git",
