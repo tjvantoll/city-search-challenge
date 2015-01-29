@@ -1,4 +1,5 @@
-// Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js
+// Taken from https://github.com/cinovo/node-i18n-iso-countries/blob/master/en.js,
+// with the addition of XK for Kosovo
 module.exports = {
 	"AF": "Afghanistan",
 	"AL": "Albania",
@@ -248,5 +249,6 @@ module.exports = {
 	"MF": "Saint Martin (French part)",
 	"RS": "Serbia",
 	"SX": "Sint Maarten (Dutch part)",
-	"SS": "South Sudan"
+	"SS": "South Sudan",
+	"XK": "Kosovo"
 };
