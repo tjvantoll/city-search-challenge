@@ -52,6 +52,7 @@
 	}
 
 	function useCity( city ) {
+		// Always allow the largest city in a country to be used
 		if ( city.largestInCountry ) {
 			return true;
 		}
@@ -96,7 +97,6 @@
 		$( ".level-number" ).text( levels.getCurrent() );
 		$( ".level-city-count" ).text( levels.getCitiesPerLevel() );
 		$( ".level-km" ).text( format.addCommas( levels.getKmRequirement() ) );
-		$( ".level-population" ).text( format.addCommas( levels.getPopulationRequirement() ) );
 		$( ".level-country-names" )
 			.text( levels.showCountryNames() ? "On" : "Off" )
 			.removeClass( "pass fail" )
