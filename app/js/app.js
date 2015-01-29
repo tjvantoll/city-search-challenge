@@ -223,6 +223,9 @@
 			$( "body" ).addClass( "iOS" );
 		}
 
+		// Randomize the order
+		cities = _.shuffle( cities );
+
 		// If the user is online
 		if ( window.google ) {
 			maps.build();

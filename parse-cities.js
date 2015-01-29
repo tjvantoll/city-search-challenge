@@ -71,7 +71,7 @@ fs.readFile( inputFilename, function( error, data ) {
 		}
 	});
 
-	_.shuffle( finalCityList ).forEach(function( city ) {
+	finalCityList.forEach(function( city ) {
 		fs.appendFileSync( outputFilename, JSON.stringify( city ) + ",\n" );
 	});
 
