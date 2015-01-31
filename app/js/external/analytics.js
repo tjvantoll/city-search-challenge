@@ -6,11 +6,6 @@
 	// Start analytics by calling window.analytics.Start()
 	var analytics = g.analytics = g.analytics || {};
 	analytics.Start = function() {
-		// Abort in the simulator
-		if ( !window.plugins || !window.plugins.EqatecAnalytics ) {
-			return;
-		}
-
 		// Handy shortcuts to the analytics api
 		var factory = window.plugins.EqatecAnalytics.Factory;
 		var monitor = window.plugins.EqatecAnalytics.Monitor;
@@ -19,14 +14,14 @@
 		settings.LoggingInterface = factory.CreateTraceLogger();
 		factory.CreateMonitorWithSettings( settings,
 			function() {
-				// console.log("Monitor created");
+				console.log("Monitor created");
 				// Start the monitor inside the success-callback
 				monitor.Start(function() {
-					// console.log("Monitor started");
+					console.log("Monitor started");
 				});
 			},
 			function() {
-				// console.log("Error creating monitor: " + msg);
+				console.log("Error creating monitor: " + msg);
 			});
 	};
 	analytics.Stop = function() {
@@ -46,4 +41,8 @@
 	document.addEventListener( "resume", function() {
 		window.analytics.Start();
 	});
+	window.onerror = function( message, url, lineNumber, columnNumber, error ) {
+		var monitor = window.plugins.EqatecAnalytics.Monitor;
+		monitor.TrackExceptionMessage( error, message );
+	};
 })( window );
