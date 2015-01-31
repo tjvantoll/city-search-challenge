@@ -39,6 +39,6 @@
 		window.analytics.start();
 	});
 	window.onerror = function( message, url, lineNumber, columnNumber, error ) {
-		window.analytics.monitor.TrackExceptionMessage( error, message );
+		window.analytics.monitor().TrackExceptionMessage( error, message );
 	};
 }());
