@@ -1,9 +1,10 @@
-/* global $ */
 (function() {
 	"use strict";
 
 	// Create a reference to the global dependencies
-	var cities = window.cities,
+	var _ = window._,
+		$ = window.jQuery,
+		cities = window.cities,
 		format = window.format,
 		levels = window.levels,
 		maps = window.maps,
