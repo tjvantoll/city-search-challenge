@@ -50,24 +50,6 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Replace any instances of "%BundleVersion%" with the correct BundleVersion
-		// from the .abproject.
-		replace: {
-			version: {
-				src: [ "app/js/**/*.js" ],
-				dest: [ "dist/app/js/" ],
-				replacements: [
-					{
-						from: "%BundleVersion%",
-						to: function() {
-							var config = grunt.file.readJSON( "app/.abproject" );
-							return config.BundleVersion;
-						}
-					}
-				]
-			}
-		},
-
 		// Run JSHint using the .jshintrc file for config
 		jshint: {
 			options: {
@@ -165,7 +147,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-appbuilder" );
-	grunt.loadNpmTasks( "grunt-text-replace" );
 
 	// Linting
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -184,7 +165,7 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
 	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin", "imagemin" ]);
-	grunt.registerTask( "build", [ "lint", "copy", "replace", "optimize" ]);
+	grunt.registerTask( "build", [ "lint", "copy", "optimize" ]);
 	grunt.registerTask( "build:android", [ "build", "appbuilder:android" ] );
 	grunt.registerTask( "build:ios", [ "build", "appbuilder:ios" ] );
 };

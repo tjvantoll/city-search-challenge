@@ -15,7 +15,8 @@
 		"org.apache.cordova.inappbrowser",
 		"org.apache.cordova.network-information",
 		"org.apache.cordova.splashscreen",
-		"com.telerik.plugin.eqatecanalytics"
+		"com.telerik.plugin.eqatecanalytics",
+		"uk.co.whiteoctober.cordova.appversion@0.1.4"
 	],
 	"AndroidPermissions": [],
 	"DeviceOrientations": [
@@ -40,7 +41,8 @@
 		"ID_RESOLUTION_HD720P"
 	],
 	"CordovaPluginVariables": {
-		"com.telerik.plugin.eqatecanalytics": {}
+		"com.telerik.plugin.eqatecanalytics": {},
+		"uk.co.whiteoctober.cordova.appversion": {}
 	},
 	"ProjectGuid": "{0f3583ed-e428-464e-8e5b-7b5a108e65fa}",
 	"WP8PublisherID": "{d9e033ae-5264-4a8b-824a-5014eb0abde2}",

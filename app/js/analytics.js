@@ -1,6 +1,6 @@
 (function() {
-	var productId = "aee3e6911acc4709bf01756445fce70d",
-		version = "%BundleVersion%";
+	var version,
+		productId = "aee3e6911acc4709bf01756445fce70d";
 
 	window.analytics = {
 		start: function() {
@@ -30,7 +30,10 @@
 	};
 
 	document.addEventListener( "deviceready", function() {
-		window.analytics.start();
+		window.cordova.getAppVersion(function( appVersion ) {
+			version = appVersion;
+			window.analytics.start();
+		});
 	});
 	document.addEventListener( "pause", function() {
 		window.analytics.stop();

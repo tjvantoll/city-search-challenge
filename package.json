@@ -15,7 +15,6 @@
     "grunt-html": "^1.6.0",
     "grunt-jscs": "^1.2.0",
     "grunt-sass": "^0.17.0",
-    "grunt-text-replace": "^0.4.0",
     "lodash": "^3.0.0"
   },
   "repository": {
