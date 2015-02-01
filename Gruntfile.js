@@ -3,12 +3,17 @@ module.exports = function( grunt ) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON( "package.json" ),
+
+		// Watch for changes in the scss directory and invoke the
+		// sass task as necessary
 		watch: {
 			sass: {
 				files: [ "app/scss/**/*.scss" ],
 				tasks: [ "sass" ]
 			}
 		},
+
+		// Copy the source files into the dist directory
 		copy: {
 			main: {
 				files: [
@@ -20,6 +25,8 @@ module.exports = function( grunt ) {
 				]
 			}
 		},
+
+		// Build AppBuilder release builds for iOS & Android
 		appbuilder: {
 			options: {
 				debug: false
@@ -42,27 +49,55 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		// Replace any instances of "%BundleVersion%" with the correct BundleVersion
+		// from the .abproject.
+		replace: {
+			version: {
+				src: [ "app/js/**/*.js" ],
+				dest: [ "dist/app/js/" ],
+				replacements: [
+					{
+						from: "%BundleVersion%",
+						to: function() {
+							var config = grunt.file.readJSON( "app/.abproject" );
+							return config.BundleVersion;
+						}
+					}
+				]
+			}
+		},
+
+		// Run JSHint using the .jshintrc file for config
 		jshint: {
 			options: {
 				jshintrc: true
 			},
 			all: [ "*.js", "app/js/*.js" ]
 		},
+
+		// Run JSCS using the .jscsrc file for config
 		jscs: {
 			src: [ "*.js", "app/js/*.js" ],
 			options: {
 				config: ".jscsrc"
 			}
 		},
+
+		// Run CSSLint using the .csslintrc file for config
 		csslint: {
 			src: [ "app/css/*" ],
 			options: {
 				csslintrc: ".csslintrc"
 			}
 		},
+
+		// Run HTMLLint
 		htmllint: {
 			all: [ "app/*.html" ]
 		},
+
+		// Compile all .scss files into .css files
 		sass: {
 			dist: {
 				files: {
@@ -70,6 +105,8 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
+
+		//  Run Uglify on all JavaScript files in the dist directory
 		uglify: {
 			all: {
 				files: [
@@ -80,6 +117,8 @@ module.exports = function( grunt ) {
 				]
 			}
 		},
+
+		// Minify all CSS files in the dist directory
 		cssmin: {
 			all: {
 				files: [
@@ -90,6 +129,8 @@ module.exports = function( grunt ) {
 				]
 			}
 		},
+
+		// Minify all HTML files in the dist directory
 		htmlmin: {
 			options: {
 				removeComments: true,
@@ -104,6 +145,8 @@ module.exports = function( grunt ) {
 				]
 			}
 		},
+
+		// Compress all images in the dist directory
 		imagemin: {
 			all: {
 				files: [
@@ -122,6 +165,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-appbuilder" );
+	grunt.loadNpmTasks( "grunt-text-replace" );
 
 	// Linting
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -140,7 +184,7 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
 	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin", "imagemin" ]);
-	grunt.registerTask( "build", [ "lint", "copy", "optimize" ]);
+	grunt.registerTask( "build", [ "lint", "copy", "replace", "optimize" ]);
 	grunt.registerTask( "build:android", [ "build", "appbuilder:android" ] );
 	grunt.registerTask( "build:ios", [ "build", "appbuilder:ios" ] );
 };

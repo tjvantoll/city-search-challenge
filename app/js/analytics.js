@@ -1,6 +1,6 @@
 (function() {
 	var productId = "aee3e6911acc4709bf01756445fce70d",
-		version = "3.1.0";
+		version = "%BundleVersion%";
 
 	window.analytics = {
 		start: function() {
