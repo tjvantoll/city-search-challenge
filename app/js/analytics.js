@@ -29,6 +29,10 @@
 		}
 	};
 
+	if ( navigator.simulator ) {
+		return;
+	}
+
 	document.addEventListener( "deviceready", function() {
 		window.cordova.getAppVersion(function( appVersion ) {
 			version = appVersion;
