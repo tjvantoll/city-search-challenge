@@ -18,7 +18,9 @@ module.exports = function( grunt ) {
 			all: {
 				files: [
 					{
-						src: [ "app/**/*" ],
+						expand: true,
+						cwd: "app/",
+						src: [ "**/*" ],
 						dest: "dist/",
 						dot: true
 					}
@@ -36,7 +38,7 @@ module.exports = function( grunt ) {
 					platform: "android"
 				},
 				files: {
-					"app.apk": [ "dist/app" ]
+					"app.apk": [ "dist" ]
 				}
 			},
 			ios: {
@@ -45,7 +47,7 @@ module.exports = function( grunt ) {
 					provision: "iOS Distribution"
 				},
 				files: {
-					"app.ipa": [ "dist/app" ]
+					"app.ipa": [ "dist" ]
 				}
 			}
 		},
@@ -100,7 +102,7 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						src: "dist/app/js/**/*.js"
+						src: "dist/js/**/*.js"
 					}
 				]
 			}
@@ -112,7 +114,7 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						src: "dist/app/css/**/*.css"
+						src: "dist/css/**/*.css"
 					}
 				]
 			}
@@ -140,9 +142,9 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						cwd: "dist/app/img/",
+						cwd: "dist/img/",
 						src: [ "**/*.{png,gif,jpg}" ],
-						dest: "dist/app/img/"
+						dest: "dist/img/"
 					}
 				]
 			}
