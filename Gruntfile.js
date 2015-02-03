@@ -15,7 +15,7 @@ module.exports = function( grunt ) {
 
 		// Copy the source files into the dist directory
 		copy: {
-			main: {
+			all: {
 				files: [
 					{
 						src: [ "app/**/*" ],
@@ -60,7 +60,7 @@ module.exports = function( grunt ) {
 
 		// Run JSCS using the .jscsrc file for config
 		jscs: {
-			src: [ "*.js", "app/js/*.js" ],
+			all: [ "*.js", "app/js/*.js" ],
 			options: {
 				config: ".jscsrc"
 			}
@@ -68,7 +68,7 @@ module.exports = function( grunt ) {
 
 		// Run CSSLint using the .csslintrc file for config
 		csslint: {
-			src: [ "app/css/**/*.css" ],
+			all: [ "app/css/**/*.css" ],
 			options: {
 				csslintrc: ".csslintrc"
 			}
@@ -81,10 +81,16 @@ module.exports = function( grunt ) {
 
 		// Compile all .scss files into .css files
 		sass: {
-			dist: {
-				files: {
-					"app/css/app.css": "app/scss/app.scss"
-				}
+			all: {
+				files: [
+					{
+						expand: true,
+						cwd: "app/scss/",
+						src: "*.scss",
+						dest: "app/css/",
+						ext: ".css"
+					}
+				]
 			}
 		},
 
@@ -118,7 +124,7 @@ module.exports = function( grunt ) {
 				removeComments: true,
 				collapseWhitespace: true
 			},
-			dist: {
+			all: {
 				files: [
 					{
 						expand: true,
