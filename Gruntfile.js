@@ -68,7 +68,7 @@ module.exports = function( grunt ) {
 
 		// Run CSSLint using the .csslintrc file for config
 		csslint: {
-			src: [ "app/css/*" ],
+			src: [ "app/css/**/*.css" ],
 			options: {
 				csslintrc: ".csslintrc"
 			}
@@ -76,7 +76,7 @@ module.exports = function( grunt ) {
 
 		// Run HTMLLint
 		htmllint: {
-			all: [ "app/*.html" ]
+			all: [ "app/**/*.html" ]
 		},
 
 		// Compile all .scss files into .css files
