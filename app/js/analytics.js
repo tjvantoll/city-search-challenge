@@ -37,13 +37,13 @@
 		window.cordova.getAppVersion(function( appVersion ) {
 			version = appVersion;
 			window.analytics.start();
+			document.addEventListener( "pause", function() {
+				window.analytics.stop();
+			});
+			document.addEventListener( "resume", function() {
+				window.analytics.start();
+			});
 		});
-	});
-	document.addEventListener( "pause", function() {
-		window.analytics.stop();
-	});
-	document.addEventListener( "resume", function() {
-		window.analytics.start();
 	});
 	window.onerror = function( message, url, lineNumber, columnNumber, error ) {
 		window.analytics.monitor().TrackExceptionMessage( error, message );
