@@ -92,13 +92,13 @@
 			return google.maps.geometry.spherical.computeDistanceBetween( one, two ) / 1000;
 		},
 		addMarkers: function( currentCity, selectedLatitude, selectedLongitude ) {
-			var promise = $.Deferred(),
+			var offset,
+				promise = $.Deferred(),
 				correctPosition = new google.maps.LatLng(
 					currentCity.latitude, currentCity.longitude ),
 				selectedPosition = new google.maps.LatLng(
 					selectedLatitude, selectedLongitude ),
-				panPosition = new google.maps.LatLng(
-					currentCity.latitude - 30, currentCity.longitude );
+				bounds = new google.maps.LatLngBounds();
 
 			selectedMarker = new google.maps.Marker({
 				position: selectedPosition,
@@ -106,10 +106,6 @@
 				icon: "img/red-marker.png"
 			});
 			selectedMarker.setMap( map );
-
-			// Empty the custom styles to show the map labels when the
-			// answer is revealed
-			map.setOptions({ styles: [], zoom: 2 });
 
 			setTimeout(function() {
 				correctMarker = new google.maps.Marker({
@@ -127,7 +123,20 @@
 				});
 				path.setMap( map );
 
-				map.panTo( panPosition );
+				bounds.extend( selectedMarker.getPosition() );
+				bounds.extend( correctMarker.getPosition() );
+				map.fitBounds( bounds );
+
+				offset = 100 / Math.pow( 2, map.getZoom() - 1 );
+
+				map.setOptions({
+					styles: [],
+					zoom: ( map.getZoom() - 1 ),
+					center: new google.maps.LatLng(
+						bounds.getCenter().k - offset,
+						bounds.getCenter().D )
+				});
+
 				promise.resolve();
 			}, 500 );
 
