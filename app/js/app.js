@@ -19,7 +19,10 @@
 		cityNumber = 1,
 
 		// An array of results of the user's selections
-		cityResults = [];
+		cityResults = [],
+
+		// Remember where the user was when they go offline
+		previousGameState;
 
 	function handleUserSelection( event, latitude, longitude ) {
 		// Ignore selections if the results are already up
@@ -50,6 +53,16 @@
 		$( "body" )
 			.removeClass( "welcome level search city-results level-results congrats offline" )
 			.addClass( state );
+	}
+
+	function getGameState() {
+		var state;
+		$( "body" ).attr( "class" ).split( " " ).forEach(function( className ) {
+			if ( className !== "iOS" ) {
+				state = className;
+			}
+		});
+		return state;
 	}
 
 	function useCity( city ) {
@@ -154,6 +167,7 @@
 	}
 
 	function handleOffline() {
+		previousGameState = getGameState();
 		setGameState( "offline" );
 	}
 
@@ -161,10 +175,10 @@
 		if ( !window.google ) {
 			$.getScript( $( "#google-script" ).attr( "src" ) ).then(function() {
 				maps.build();
-				setGameState( "welcome" );
+				setGameState( previousGameState );
 			});
 		} else {
-			setGameState( "welcome" );
+			setGameState( previousGameState );
 		}
 	}
 
