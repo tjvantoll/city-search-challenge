@@ -174,6 +174,6 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "lint", [ "jshint", "jscs", "csslint", "htmllint" ]);
 	grunt.registerTask( "optimize", [ "sass", "uglify", "cssmin", "htmlmin", "imagemin" ]);
 	grunt.registerTask( "build", [ "lint", "copy", "optimize" ]);
-	grunt.registerTask( "build:android", [ "build", "appbuilder:android" ] );
-	grunt.registerTask( "build:ios", [ "build", "appbuilder:ios" ] );
+	grunt.registerTask( "android", [ "build", "appbuilder:android" ] );
+	grunt.registerTask( "ios", [ "build", "appbuilder:ios" ] );
 };
