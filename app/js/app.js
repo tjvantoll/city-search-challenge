@@ -67,7 +67,7 @@
 
 	function useCity( city ) {
 		// Always allow the largest city in a country to be used
-		if ( city.largestInCountry ) {
+		if ( city.largestInCountry && city.population > ( levels.getPopulationRequirement() * 0.3 ) ) {
 			return true;
 		}
 		// Apply different logic for India and China because of their populations
