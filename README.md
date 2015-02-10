@@ -2,6 +2,8 @@
 
 This repository contains the source code for the City Search Challenge app: a cross-platform Cordova app built with [Telerik AppBuilder](http://www.telerik.com/appbuilder) and the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/).
 
+<a href="https://platform.telerik.com/#appbuilder/clone/https%3A%2F%2Fgithub.com%2Ftjvantoll%2Fcity-search-challenge.git" target="_blank"><img src="http://docs.telerik.com/platform/appbuilder/sample-apps/images/try-in-appbuilder.png" alt="Try in AppBuilder" title="Try in AppBuilder" /></a>
+
 ## Description
 
 > How well do you know the location of cities around the world? Test your knowledge in this simple app that has you locate major cities from San Francisco to Tokyo, and everywhere in between. See how close you can get and challenge your friends!
