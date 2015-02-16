@@ -4,6 +4,7 @@
 	// Create a reference to the global dependencies
 	var _ = window._,
 		$ = window.jQuery,
+		analytics = window.analytics,
 		cities = window.cities,
 		format = window.format,
 		levels = window.levels,
@@ -156,6 +157,7 @@
 		}
 
 		if ( success ) {
+			analytics.track( "LevelClear." + levels.getCurrent() );
 			levels.levelUp();
 		}
 	}

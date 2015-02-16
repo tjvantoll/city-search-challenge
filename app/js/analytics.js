@@ -26,6 +26,10 @@
 		},
 		monitor: function() {
 			return window.plugins.EqatecAnalytics.Monitor;
+		},
+		track: function( feature ) {
+			var monitor = window.plugins.EqatecAnalytics.Monitor;
+			monitor.TrackFeature( feature );
 		}
 	};
 
