@@ -46,5 +46,7 @@
 	},
 	"ProjectGuid": "{0f3583ed-e428-464e-8e5b-7b5a108e65fa}",
 	"WP8PublisherID": "{d9e033ae-5264-4a8b-824a-5014eb0abde2}",
-	"WP8ProductID": "{a95a0ad9-9ad2-4d08-ba24-1d7c4bde9bc4}"
+	"WP8ProductID": "{a95a0ad9-9ad2-4d08-ba24-1d7c4bde9bc4}",
+	"WP8PackageIdentityName": "1234Telerik.com.tjvantoll.citysearch",
+	"WP8WindowsPublisherName": "CN=Telerik"
 }
