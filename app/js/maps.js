@@ -68,14 +68,32 @@
 			google.maps.event.addListener( map, "click", function( event ) {
 				$.publish( "maps.selection", [ event.latLng.k, event.latLng.D ] );
 			});
+
+			selectedMarker = new google.maps.Marker({
+				icon: "img/red-marker.png"
+			});
+			selectedMarker.setMap( map );
+
+			correctMarker = new google.maps.Marker({
+				icon: "img/green-marker.png"
+			});
+			correctMarker.setMap( map );
+
+			path = new google.maps.Polyline({
+				strokeColor: "#FF0000",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+			path.setMap( map );
+
 			handleLinks();
 		},
 		clear: function() {
 			// Remove the previous answer's marker
 			if ( correctMarker ) {
-				correctMarker.setMap( null );
-				selectedMarker.setMap( null );
-				path.setMap( null );
+				correctMarker.setVisible( false );
+				selectedMarker.setVisible( false );
+				path.setVisible( false );
 			}
 		},
 		reset: function() {
@@ -100,28 +118,15 @@
 					selectedLatitude, selectedLongitude ),
 				bounds = new google.maps.LatLngBounds();
 
-			selectedMarker = new google.maps.Marker({
-				position: selectedPosition,
-				title: "Your selection",
-				icon: "img/red-marker.png"
-			});
-			selectedMarker.setMap( map );
+			selectedMarker.setPosition( selectedPosition );
+			selectedMarker.setVisible( true );
 
 			setTimeout(function() {
-				correctMarker = new google.maps.Marker({
-					position: correctPosition,
-					title: currentCity.name,
-					icon: "img/green-marker.png"
-				});
-				correctMarker.setMap( map );
+				correctMarker.setPosition( correctPosition );
+				correctMarker.setVisible( true );
 
-				path = new google.maps.Polyline({
-					path: [ correctPosition, selectedPosition ],
-					strokeColor: "#FF0000",
-					strokeOpacity: 1.0,
-					strokeWeight: 2
-				});
-				path.setMap( map );
+				path.setPath([ correctPosition, selectedPosition ]);
+				path.setVisible( true );
 
 				bounds.extend( selectedMarker.getPosition() );
 				bounds.extend( correctMarker.getPosition() );
