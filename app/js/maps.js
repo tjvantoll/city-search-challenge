@@ -66,7 +66,7 @@
 				zoomControl: true
 			});
 			google.maps.event.addListener( map, "click", function( event ) {
-				$.publish( "maps.selection", [ event.latLng.k, event.latLng.D ] );
+				$.publish( "maps.selection", [ event.latLng.G, event.latLng.K ] );
 			});
 
 			selectedMarker = new google.maps.Marker({
@@ -133,13 +133,12 @@
 				map.fitBounds( bounds );
 
 				offset = 100 / Math.pow( 2, map.getZoom() - 1 );
-
 				map.setOptions({
 					styles: [],
 					zoom: ( map.getZoom() - 1 ),
 					center: new google.maps.LatLng(
-						bounds.getCenter().k - offset,
-						bounds.getCenter().D )
+						bounds.getCenter().G - offset,
+						bounds.getCenter().K )
 				});
 
 				promise.resolve();
