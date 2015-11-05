@@ -18,7 +18,7 @@ This repository contains the source code for the City Search Challenge app: a cr
 
 ### Android
 
-<a href="https://play.google.com/store/apps/details?id=com.tjvantoll.citysearch&hl=en">
+<a href="https://play.google.com/store/apps/details?id=com.tjvantoll.citysearchchallenge">
 	<img src="assets/App-Store-Icons/google-play.png" style="height: 59px;">
 </a>
 
